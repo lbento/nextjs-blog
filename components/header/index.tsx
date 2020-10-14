@@ -40,7 +40,7 @@ const Header: React.FC<any> = () => {
             link: '/'
 
         },
-    ]
+    ];
     return (
         <>
             <HeaderRow position="relative">
