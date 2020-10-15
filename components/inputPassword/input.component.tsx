@@ -1,18 +1,24 @@
 import React from 'react';
 import { Input_, TextField_ } from './input.styles';
 import PasswordField from 'material-ui-password-field';
+import {verifyPass}from './input.func';
 
 interface InputCustomProps {
     placeholder: string;
+    password: string;
 }
 
 const InputCustom: React.FC<InputCustomProps> = ({
-    placeholder
+    placeholder,
+    password
 }) => {
-    return (
-        <PasswordField hintText="Crie uma senha" floatingLabelText="Crie uma senha" errorText="Your password is too short" />
-    )
-}
 
+    return (
+        <TextField_ placeholder={placeholder} type="password" label={placeholder}
+            value={password} onChange={ verifyPass()} id="id"></TextField_>
+    )
+
+}
 export default InputCustom;
+
 

@@ -8,7 +8,7 @@ export default props => {
         <>
             <Card title="Cadastro" subheader="Bem vindo ao Bike Itaú! Para continuar, digite seu e-mail e crie uma senha.">
                 <FormControl>
-                    <TextField placeholder='E-mail' variant="outlined" label='E-mail'></TextField>
+                    <TextField placeholder='E-mail' variant="outlined" label='E-mail'></TextField><br/>
                     <Input placeholder="Crie uma senha" ></Input>
                 </FormControl>
             </Card>
