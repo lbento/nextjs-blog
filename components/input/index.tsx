@@ -14,6 +14,5 @@ export default function Input({ name, ...rest }) {
     });
   }, [fieldName, registerField]);
 
-  
-  return <OutlinedInput  inputRef={inputRef} defaultValue={defaultValue} {...rest} />;
+  return <TextField variant="outlined" label={rest.placeholder} inputRef={inputRef} defaultValue={defaultValue} {...rest} fullWidth />;
 }
