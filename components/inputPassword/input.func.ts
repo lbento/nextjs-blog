@@ -1,5 +1,5 @@
 
 
 export function verifyPass(){
-    alert("change")
+    //alert("change")
 }
