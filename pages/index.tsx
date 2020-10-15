@@ -10,11 +10,9 @@ export default function Home({allPostsData}) {
   return (
     <Layout home>
       <section className={utilStyles.headingMd}>
-        <div style={{alignItems: "center", justifyContent: 'center'}}>
 
         <Cadastro></Cadastro>
 
-        </div>
       <br />
         <p>[Your Self Introduction]</p>
         <p>
