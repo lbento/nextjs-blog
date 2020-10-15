@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Card from '../../components/card/card.component';
 import InputPassword from '../../components/inputPassword/input.component';
 import { FormControl, FormGroup, TextField } from '@material-ui/core';
@@ -10,37 +10,54 @@ import Button from '../../components/formbutton';
 
 const Signup: React.FC<any> = () =>  {
 
-    function handleSubmit(data) {
-        console.log(data);
-        // { email: 'test@example.com', password: '123456' }
-      }
+    const initialState = {
+        email: "",
+        password: "",
+      };
 
-    const router = useRouter() ;
+    const [step, changeStep] = useState(1);
+    const [{email, password}, setState] = useState(initialState);
+
+    const handleSubmit = data => {
+        console.log(data);
+        changeStep(2);
+        setState(data);
+      }
 
     const onsubmitHandler = event => {
         event.preventDefault();
         console.log('submeeeet');
-        router.push("/personal-information")
     }
-    return (
-        <>
-            <CustomCard  title={'Cadastro'} subheader={'Bem vindo ao Bike Itaú! Para continuar, digite seu e-mail e crie uma senha.'} >
-                <FormControl>
-                    <TextField placeholder='E-mail' variant="outlined" label='E-mail'></TextField><br/>
-                    {/* <InputPassword placeholder="Crie uma senha" ></InputPassword> */}
-                    <button type="submit" onClick={onsubmitHandler}>
-                    Submit
-                    </button>
-                </FormControl>
-            </CustomCard>
 
+    const renderAuthButton = ()=>{
+        if(step === 1){
+          return (
             <CustomCard  title={'Cadastro'} subheader={'Bem vindo ao Bike Itaú! Para continuar, digite seu e-mail e crie uma senha.'} >
                 <CustomForm onSubmit={handleSubmit}>
                     <Input name="email" type="email" placeholder="E-mail" />
                     <Input name="password" type="password" placeholder="Crie uma senha"/>
-                    <Button type={'submit'} disabled={true}>Continuar</Button>
+                    <Button type={'submit'} disabled={false}>Continuar</Button>
                 </CustomForm>
             </CustomCard>
+          )
+        } else{
+          return (
+            <CustomCard title={'Informações adicionais'} subheader={'Preencha as informações abaixo para se cadastrar'} >
+                <CustomForm onSubmit={onsubmitHandler}>
+                    <Input name="name" type="text" placeholder="Nome completo" />
+                    <Input name="cpf" type="text" placeholder="CPF"/>
+
+                    <Input name="phone" type="text" placeholder="Celular"/>
+                    <Button type={'submit'} disabled={true}>Continuar</Button>
+                </CustomForm>
+            </ CustomCard>
+          )
+        }
+      }
+
+    return (
+        <>
+            {renderAuthButton()}
         </>
     );
 }
