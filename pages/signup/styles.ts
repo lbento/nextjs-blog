@@ -1,6 +1,6 @@
-import { Form } from '@unform/web';
-import styled from 'styled-components';
+import { Form as Unform } from '@unform/web';	
+import styled from 'styled-components';	
 
-export const CustomForm = styled(Form)`
-    text-align: center
-`;
+export const CustomForm = styled(Unform)`	
+    text-align: center	
+`; 

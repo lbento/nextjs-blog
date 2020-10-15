@@ -7,6 +7,7 @@ import CustomCard from '../../components/customcard';
 import Input from '../../components/input';
 import { CustomForm } from './styles';
 import Button from '../../components/formbutton';
+import Layout from '../../components/layout';
 
 const Signup: React.FC<any> = () =>  {
 
@@ -24,8 +25,8 @@ const Signup: React.FC<any> = () =>  {
         setState(data);
       }
 
-    const onsubmitHandler = event => {
-        event.preventDefault();
+    const onsubmitHandler = data => {
+      console.log(data)
         console.log('submeeeet');
     }
 
@@ -48,7 +49,7 @@ const Signup: React.FC<any> = () =>  {
                     <Input name="cpf" type="text" placeholder="CPF"/>
 
                     <Input name="phone" type="text" placeholder="Celular"/>
-                    <Button type={'submit'} disabled={true}>Continuar</Button>
+                    <Button type={'submit'} disabled={false}>Continuar</Button>
                 </CustomForm>
             </ CustomCard>
           )
@@ -56,9 +57,9 @@ const Signup: React.FC<any> = () =>  {
       }
 
     return (
-        <>
+      <Layout>
             {renderAuthButton()}
-        </>
+      </Layout>
     );
 }
 
