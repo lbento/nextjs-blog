@@ -30,8 +30,12 @@ export default props => {
           };
 
           console.log(user)
+          const headers = {
+            "Content-Type":  "application/json",
+            "Accept-Language": "pt-br"
+          }
     
-        const res = await axios.post(`https://virtserver.swaggerhub.com/garusocruz/test/1.0.0/api/legacy/account/signin`, { user })
+        const res = await axios.post(`https://virtserver.swaggerhub.com/garusocruz/test/1.0.0/api/legacy/account/signin`, { user }, { headers })
  
         console.log(res);
         console.log(res.data);
