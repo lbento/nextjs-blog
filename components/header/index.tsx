@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import React from 'react';
-import { GridRow, GridRight } from '../styles';
-import { HeaderRow, MenuItens, Image } from './styles';
+import { HeaderRow, MenuItens, Image, GridHeader } from './styles';
+import Hidden from '@material-ui/core/Hidden';
 
 const Header: React.FC<any> = () => {
     const menuOptions = [
@@ -44,16 +44,22 @@ const Header: React.FC<any> = () => {
     return (
         <>
             <HeaderRow position="relative">
-                <GridRow>
-                    <Link href='/'>
-                        <a><Image src='/images/logo.png'></Image></a>
-                    </Link>
-                </GridRow >
-                <GridRow  theme={GridRight}>
-                    {menuOptions.map(({ name, link }) => (
-                        <Link href={link}><MenuItens>{name}</MenuItens></Link>
-                    ))}
-                </GridRow>
+                <GridHeader container alignItems="flex-end">
+                    <GridHeader item xs={2}>
+                        <Link href='/'>
+                            <a><Image src='/images/logo.png'></Image></a>
+                        </Link>
+                    </GridHeader>
+                    
+                    <GridHeader item xs={10} align={"right"}>
+                        <Hidden mdDown>
+                            {menuOptions.map(({ name, link }) => (
+                                <Link href={link}><MenuItens>{name}</MenuItens></Link>
+                            ))}
+                        </Hidden>
+                    </GridHeader>
+                    
+                </GridHeader>
             </HeaderRow>
         </>
     );
