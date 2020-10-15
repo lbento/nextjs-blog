@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const FooterRow = styled.footer`
+    margin-top: 60px;
     background-color: #ff5900;
 `;
 

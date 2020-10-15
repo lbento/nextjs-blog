@@ -7,6 +7,7 @@ export const HeaderRow = styled(AppBar)`
     padding: 20px 8%;
     background-color: ${props => props.background} !important;
     box-shadow: none !important;
+    margin-bottom: 60px;
 `;
 
 export const MenuItens = styled.a`
