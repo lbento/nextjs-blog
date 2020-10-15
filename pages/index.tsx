@@ -4,76 +4,17 @@ import { getSortedPostsData } from '../lib/posts'
 import Link from 'next/link'
 import Date from '../components/date'
 import { GetStaticProps } from 'next'
+import Cadastro from '../pages/signup/signup.component';
 
 export default function Home({allPostsData}) {
   return (
     <Layout home>
       <section className={utilStyles.headingMd}>
-        
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
-      <br />
-      asdasdasd
-      adasdasdasd
-      asdadasdasd
+        <div style={{alignItems: "center", justifyContent: 'center'}}>
+
+        <Cadastro></Cadastro>
+
+        </div>
       <br />
         <p>[Your Self Introduction]</p>
         <p>
