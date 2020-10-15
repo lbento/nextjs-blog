@@ -1,13 +1,14 @@
 import React from 'react'
-import { Card, CardContent, Typography } from '@material-ui/core'
+import { CardContent, Typography } from '@material-ui/core'
 import Grid from '@material-ui/core/Grid';
+import { CustomCard } from './styles'
 
 interface CardCustomProps {
     title: string;
     subheader: string;
 }
 
-const CustomCard: React.FC<CardCustomProps> = ({
+const Card: React.FC<CardCustomProps> = ({
     title,
     subheader,
     children,
@@ -16,7 +17,7 @@ const CustomCard: React.FC<CardCustomProps> = ({
   return (
     <Grid container justify="center">
         <Grid item xs={11} sm={9} lg={6} xl={5}>
-            <Card>
+            <CustomCard>
                 <CardContent>
                     <Typography variant="h5" component="h2">
                         {title}
@@ -28,10 +29,10 @@ const CustomCard: React.FC<CardCustomProps> = ({
                     {children}
         
                 </CardContent>
-            </Card>
+            </CustomCard>
         </Grid>
     </Grid>
   )
 }
 
-export default CustomCard;
+export default Card;

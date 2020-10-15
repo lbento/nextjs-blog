@@ -5,7 +5,8 @@ import { FormControl, FormGroup, TextField } from '@material-ui/core';
 import { useRouter } from 'next/router'
 import CustomCard from '../../components/customcard';
 import Input from '../../components/input';
-import { Form } from '@unform/web';
+import { CustomForm } from './styles';
+import Button from '../../components/formbutton';
 
 const Signup: React.FC<any> = () =>  {
 
@@ -34,11 +35,11 @@ const Signup: React.FC<any> = () =>  {
             </CustomCard>
 
             <CustomCard  title={'Cadastro'} subheader={'Bem vindo ao Bike Itaú! Para continuar, digite seu e-mail e crie uma senha.'} >
-                <Form onSubmit={handleSubmit}>
+                <CustomForm onSubmit={handleSubmit}>
                     <Input name="email" type="email" placeholder="E-mail" />
                     <Input name="password" type="password" placeholder="Crie uma senha"/>
-                    <button type="submit">Sign in</button>
-                </Form>
+                    <Button type={'submit'} disabled={true}>Continuar</Button>
+                </CustomForm>
             </CustomCard>
         </>
     );

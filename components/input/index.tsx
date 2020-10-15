@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useField } from '@unform/core';
-import { TextField } from '@material-ui/core';
+import { CustomTextField } from './styles';
 
 export default function Input({ name, ...rest }) {
   const inputRef = useRef(null);
@@ -14,5 +14,5 @@ export default function Input({ name, ...rest }) {
     });
   }, [fieldName, registerField]);
 
-  return <TextField variant="outlined" label={rest.placeholder} inputRef={inputRef} defaultValue={defaultValue} {...rest} fullWidth />;
+  return <CustomTextField variant="outlined" label={rest.placeholder} inputRef={inputRef} defaultValue={defaultValue} {...rest} fullWidth />;
 }
