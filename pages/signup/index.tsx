@@ -1,56 +1,62 @@
 import React, { useState } from 'react';
-import Card from '../../components/card/card.component';
-import InputPassword from '../../components/inputPassword/input.component';
-import { FormControl, FormGroup, TextField } from '@material-ui/core';
-import { useRouter } from 'next/router'
 import CustomCard from '../../components/customcard';
 import Input from '../../components/input';
-import { CustomForm } from './styles';
 import Button from '../../components/formbutton';
 import Layout from '../../components/layout';
+import * as Yup from 'yup';
+import From from '../../components/form';
 
 const Signup: React.FC<any> = () =>  {
 
-    const initialState = {
+    
+
+    const initialStateFirstStep = {
         email: "",
-        password: "",
+        password: ""
       };
 
+      const initialStateSecondStep = {
+        name: "",
+        cpf: "",
+        phone: ""
+      }
+
     const [step, changeStep] = useState(1);
-    const [{email, password}, setState] = useState(initialState);
+    const [{email, password}, setStateFirst] = useState(initialStateFirstStep);
+    const [{name, cpf, phone}, setStateSecond] = useState(initialStateSecondStep);
 
     const handleSubmit = data => {
         console.log(data);
         changeStep(2);
-        setState(data);
+        setStateFirst({...data});
       }
 
     const onsubmitHandler = data => {
       console.log(data)
-        console.log('submeeeet');
+      console.log('submeeeet');
     }
 
     const renderAuthButton = ()=>{
         if(step === 1){
           return (
             <CustomCard  title={'Cadastro'} subheader={'Bem vindo ao Bike Itaú! Para continuar, digite seu e-mail e crie uma senha.'} >
-                <CustomForm onSubmit={handleSubmit}>
+                <From onSubmit={handleSubmit}>
                     <Input name="email" type="email" placeholder="E-mail" />
                     <Input name="password" type="password" placeholder="Crie uma senha"/>
                     <Button type={'submit'} disabled={false}>Continuar</Button>
-                </CustomForm>
+                </From>
             </CustomCard>
           )
         } else{
           return (
             <CustomCard title={'Informações adicionais'} subheader={'Preencha as informações abaixo para se cadastrar'} >
-                <CustomForm onSubmit={onsubmitHandler}>
+                <From onSubmit={onsubmitHandler}>
                     <Input name="name" type="text" placeholder="Nome completo" />
                     <Input name="cpf" type="text" placeholder="CPF"/>
 
                     <Input name="phone" type="text" placeholder="Celular"/>
                     <Button type={'submit'} disabled={false}>Continuar</Button>
-                </CustomForm>
+                </From>
             </ CustomCard>
           )
         }
