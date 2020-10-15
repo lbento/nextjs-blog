@@ -2,6 +2,8 @@ import Link from 'next/link';
 import React from 'react';
 import { HeaderRow, MenuItens, Image, GridHeader } from './styles';
 import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
+import MenuIcon from '@material-ui/icons/Menu';
 
 const Header: React.FC<any> = () => {
     const menuOptions = [
@@ -43,7 +45,8 @@ const Header: React.FC<any> = () => {
     ];
     return (
         <>
-            <HeaderRow position="relative">
+            <HeaderRow position="relative" background={"#ff5900"}>
+
                 <GridHeader container alignItems="flex-end">
                     <GridHeader item xs={2}>
                         <Link href='/'>
@@ -57,6 +60,14 @@ const Header: React.FC<any> = () => {
                                 <Link href={link}><MenuItens>{name}</MenuItens></Link>
                             ))}
                         </Hidden>
+                        <Hidden lgUp>
+                            <IconButton
+                                edge="start"
+                                color="inherit"
+                                >
+                                <MenuIcon fontSize="large" />
+                            </IconButton>
+                        </Hidden>
                     </GridHeader>
                     
                 </GridHeader>
@@ -66,3 +77,4 @@ const Header: React.FC<any> = () => {
 }
 
 export default Header;
+

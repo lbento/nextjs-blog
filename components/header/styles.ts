@@ -3,9 +3,10 @@ import { AppBar } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 
 export const HeaderRow = styled(AppBar)`
-    min-height: 130px;
-    padding: 28px 8%;
-    background-color: #ff5900 !important;
+    min-height: 115px;
+    padding: 20px 8%;
+    background-color: ${props => props.background} !important;
+    box-shadow: none !important;
 `;
 
 export const MenuItens = styled.a`
