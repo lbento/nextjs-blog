@@ -74,8 +74,8 @@ const Header: React.FC<any> = () => {
                     
                     <GridHeader item xs={10} align={"right"}>
                         <Hidden mdDown>
-                            {menuOptions.map(({ name, link }) => (
-                                <Link href={link}><MenuItens>{name}</MenuItens></Link>
+                            {menuOptions.map(({ name, link }, index) => (
+                                <Link href={link} key={index}><MenuItens>{name}</MenuItens></Link>
                             ))}
                         </Hidden>
                         <Hidden lgUp>
@@ -88,8 +88,8 @@ const Header: React.FC<any> = () => {
                             </IconButton>
                             <CustomDrawer background={"#ff5900"} fontcolor={"#fff"} anchor={'right'} open={open} onClose={toggleDrawer(false)}>
                                 <List>
-                                    {menuOptions.map(({ name, link }) => (
-                                        <Link href={link}><ListItem button>{name}</ListItem></Link>
+                                    {menuOptions.map(({ name, link }, index) => (
+                                        <Link href={link} key={index}><ListItem button>{name}</ListItem></Link>
                                     ))}
                                 </List>
                             </CustomDrawer>

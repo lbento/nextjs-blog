@@ -9,34 +9,40 @@ const Footer: React.FC<any> = () => {
         firstRow: [
             {
                 name: 'Página Inicial',
-                link: '/'
+                link: '/',
+                key: '1'
 
             },
             {
                 name: 'Termos de Uso',
-                link: '/'
+                link: '/',
+                key: '2'
 
             },
             {
                 name: 'Politica de Privacidade',
-                link: '/'
+                link: '/',
+                key: '3'
 
             },
         ],
         secondRow: [
             {
                 name: 'Fale com a gente',
-                link: '/'
+                link: '/',
+                key: '4'
 
             },
             {
                 name: 'Regras Gerais',
-                link: '/'
+                link: '/',
+                key: '5'
 
             },
             {
                 name: 'Passo a Passo',
-                link: '/'
+                link: '/',
+                key: '6'
 
             },
         ]
@@ -50,13 +56,13 @@ const Footer: React.FC<any> = () => {
                         <a><Image src='/images/logo_footer.svg'></Image></a>
                     </Grid>
                     <Grid item xs={12} sm={3} lg={3} xl={2}>
-                        {menuOptions.firstRow.map(({ name, link }) => (
-                            <Link href={link}><MenuItens>{name}</MenuItens></Link>
+                        {menuOptions.firstRow.map(({ name, link, key }) => (
+                            <Link href={link} key={key}><MenuItens>{name}</MenuItens></Link>
                         ))}
                     </Grid>
                     <Grid item xs={12} sm={3} lg={3} xl={2}>
-                        {menuOptions.secondRow.map(({ name, link }) => (
-                            <Link href={link}><MenuItens>{name}</MenuItens></Link>
+                        {menuOptions.secondRow.map(({ name, link, key }) => (
+                        <Link href={link} key={key}><MenuItens>{name}</MenuItens></Link>
                         ))}
                     </Grid>
                 </MenuRow>
