@@ -95,7 +95,6 @@ const Header: React.FC<any> = () => {
                             </CustomDrawer>
                         </Hidden>
                     </GridHeader>
-                    
                 </GridHeader>
             </HeaderRow>
         </>

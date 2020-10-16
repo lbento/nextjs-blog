@@ -5,10 +5,10 @@ import Button from '../../components/formbutton';
 import Layout from '../../components/layout';
 import * as Yup from 'yup';
 import From from '../../components/form';
+import CustomSelect from '../../components/select';
+import CustomDialog from '../../components/dialog';
 
 const Signup: React.FC<any> = () =>  {
-
-    
 
     const initialStateFirstStep = {
         email: "",
@@ -18,12 +18,23 @@ const Signup: React.FC<any> = () =>  {
       const initialStateSecondStep = {
         name: "",
         cpf: "",
-        phone: ""
+        phone: "",
+        nationality: ""
       }
+
+    const [open, setOpen] = React.useState(false);
+
+    const handleClickOpen = () => {
+      setOpen(true);
+    };
+
+    const handleClose = () => {
+      setOpen(false);
+    };
 
     const [step, changeStep] = useState(1);
     const [{email, password}, setStateFirst] = useState(initialStateFirstStep);
-    const [{name, cpf, phone}, setStateSecond] = useState(initialStateSecondStep);
+    const [{name, cpf, phone, nationality}, setStateSecond] = useState(initialStateSecondStep);
 
     const handleSubmit = data => {
         console.log(data);
@@ -34,7 +45,15 @@ const Signup: React.FC<any> = () =>  {
     const onsubmitHandler = data => {
       console.log(data)
       console.log('submeeeet');
+      handleClickOpen();
     }
+
+    const colourOptions = [
+      { value: 'BRA', label: 'Brasileiro' },
+      { value: 'CHI', label: 'Chileno' },
+      { value: 'AR', label: 'Argentino' },
+      { value: 'O', label: 'Outros' }
+    ]
 
     const renderAuthButton = ()=>{
         if(step === 1){
@@ -53,7 +72,7 @@ const Signup: React.FC<any> = () =>  {
                 <From onSubmit={onsubmitHandler}>
                     <Input name="name" type="text" placeholder="Nome completo" />
                     <Input name="cpf" type="text" placeholder="CPF"/>
-
+                    <CustomSelect name="nationality" options={colourOptions} placeholder="Nacionalidade"></CustomSelect>
                     <Input name="phone" type="text" placeholder="Celular"/>
                     <Button type={'submit'} disabled={false}>Continuar</Button>
                 </From>
@@ -65,6 +84,12 @@ const Signup: React.FC<any> = () =>  {
     return (
       <Layout>
             {renderAuthButton()}
+            <CustomDialog 
+              open={open}
+              title={"Cadastrado"}
+              messagem={"Parabens, você voi cadastrado com sucesso!"}
+              handleClose={handleClose}
+            />
       </Layout>
     );
 }
