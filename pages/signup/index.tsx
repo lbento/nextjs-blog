@@ -47,23 +47,25 @@ const Signup: React.FC<any> = () => {
   const [{ email, password }, setStateFirst] = useState(initialStateFirstStep);
   const [{ name, cpf, phone, nationality }, setStateSecond] = useState(initialStateSecondStep);
 
+  const initialState = {eight: false,
+    lower: false,
+    upper: false,
+    number: false,
+    symbol: false}
+
+  const [state, setState] = useState({...initialState}); 
+
   const checkPassword = data => {
     var pass = data.target.value;
 
-    if (pass.length < 8) {
-      console.log("Your password needs a minimum of eight characters")
-    } else if (pass.search(/[a-z]/) < 0) {
-      data.target.style = styles.sucess;
-      console.log("Your password needs a lower case letter")
-    } else if (pass.search(/[A-Z]/) < 0) {
-      console.log("Your password needs an uppser case letter")
-    } else if (pass.search(/[0-9]/) < 0) {
-      console.log("Your password needs a number")
-    } else if (pass.search(/[!@#$%^&*]/) < 0) {
-      console.log("Your password needs a symbol")
-    } else {
-      console.log('tudo pronto!')
-    }
+    let states = {...state}
+    states.eight = pass.length > 8 ? true : false;
+    states.lower = /[a-z]/.test(pass) ? true : false;
+    states.upper = /[A-Z]/.test(pass) ? true : false;
+    states.number = /[0-9]/.test(pass)? true : false;
+    states.symbol = /[!@#$%^&*]/.test(pass) ? true : false;
+
+    setState(states);
 
   }
 
@@ -111,11 +113,11 @@ const Signup: React.FC<any> = () => {
                 <Input name="email" type="email" placeholder="E-mail" />
                 <Input name="password" type="password" placeholder="Crie uma senha" onChange={checkPassword} />
                 <br/><label style={{textAlign: "start", fontSize: '12px', color: '#535161'}}>Sua senha precisa conter:</label><br/>
-                <span style={styles.info}>Letra maiúscula</span>
-                <span style={styles.info}>Letra minúscula</span>
-                <span style={styles.info}>Valor numérico</span>
-                <span style={styles.info}>Um caractere especial dentre @ # $ & % ^ + =</span>
-                <span style={styles.info}>Ao menos 8 digitos</span>
+                <span style={state.upper ? styles.sucess : styles.info}>Letra maiúscula</span>
+                <span style={state.lower ? styles.sucess : styles.info}>Letra minúscula</span>
+                <span style={state.number ? styles.sucess : styles.info}>Valor numérico</span>
+                <span style={state.symbol ? styles.sucess : styles.info}>Um caractere especial dentre @ # $ & % ^ + =</span>
+                <span style={state.eight ? styles.sucess : styles.info}>Ao menos 8 digitos</span>
                 <br/>
                 <Button type={'submit'} disabled={false}>Continuar</Button>
                 </From>
@@ -130,7 +132,7 @@ const Signup: React.FC<any> = () => {
                 <Input name="cpf" type="text" placeholder="CPF"/>
                 <CustomSelect name="nationality" options={nationalitiesOptions} placeholder="Nacionalidade" />
                 <DatePicker name="birthday" placeholder="Data de Nascimento" />
-                <Input name="phone" type="number" placeholder="Celular"/>
+                <Input name="phone" type="text" placeholder="Celular"/>
                 <Button type={'submit'} disabled={false}>Continuar</Button>
             </From>
         </ CustomCard>
