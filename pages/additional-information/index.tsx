@@ -43,20 +43,20 @@ const AdditionalInformation: React.FC<any> = () => {
         }
       };
 
-    // const headers = {
-    //   "Content-Type":  "application/json",
-    //   "Accept-Language": "pt-br"
-    // }
+    const headers = {
+      "Content-Type":  "application/json",
+      "Accept-Language": "pt-br"
+    }
 
-    // const res = await axios.post(`https://virtserver.swaggerhub.com/garusocruz/test/1.0.0/api/legacy/register/sign_up`, { userData }, { headers })
+    const res = await axios.post(`https://virtserver.swaggerhub.com/garusocruz/test/1.0.0/api/legacy/register/sign_up`, { userData }, { headers })
 
-    // if(res.status === 200) {
-    //   handleClickOpen();
-    //   localStorage.setItem('user_access', JSON.stringify(res.data[0])) 
-    // }
-    // else {
-    //   handleClickOpen();
-    // }
+    if(res.status === 200) {
+      handleClickOpen();
+      localStorage.setItem('user_access', JSON.stringify(res.data[0])) 
+    }
+    else {
+      handleClickOpen();
+    }
   }
 
   const nationalitiesOptions = [
