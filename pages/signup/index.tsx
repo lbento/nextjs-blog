@@ -14,15 +14,12 @@ const Signup: React.FC<any> = () => {
   const handleSubmit = data => {
     schema
       .isValid(data).then(valid => {
-        
         if (valid) {
           console.log('boa')
-
           router.push({
             pathname: '/additional-information',
             query: { email: data.email, password: data.password }
           });
-
         } else {
           console.log('ah n')
         }
@@ -39,11 +36,25 @@ const Signup: React.FC<any> = () => {
 
   const [state, setState] = useState({ ...initialState });
 
+  //check valid
+  let yup = require('yup');
+
+  let schema = yup.object().shape({
+    email: yup
+      .string()
+      .email()
+      .required(),
+    password: yup
+      .string()
+      .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/)
+      .required("Required")
+  })
+
   const checkPassword = data => {
     var pass = data.target.value;
 
     let states = { ...state }
-    states.eight = pass.length > 8 ? true : false;
+    states.eight = pass.length >= 8 ? true : false;
     states.lower = /[a-z]/.test(pass) ? true : false;
     states.upper = /[A-Z]/.test(pass) ? true : false;
     states.number = /[0-9]/.test(pass) ? true : false;
@@ -57,26 +68,6 @@ const Signup: React.FC<any> = () => {
     sucess: { backgroundColor: '#43A047', color: '#fff' },
     info: { backgroundColor: '#F5F5F5', color: '#A4A3AF' }
   }
-
-  //check valid
-  let yup = require('yup');
-
-  let schema = yup.object().shape({
-    email: yup
-      .string()
-      .email()
-      .required(),
-    password: yup
-      .string()
-      .min(8)
-      .required("Required")
-  })
-
-  const validateForm = data => {
-    schema.email = data.target.value;
-    console.log(schema.email)
-  }
-
 
   return (
     <Layout>
