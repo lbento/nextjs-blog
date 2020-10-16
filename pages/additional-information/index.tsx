@@ -33,6 +33,7 @@ const AdditionalInformation: React.FC<any> = () => {
         birthday: data.birthday,
         nationality: data.nationality,
         phone: data.phone,
+        gender: data.gender,
         identity: {
           type: 2,
           number: data.cpf
@@ -60,6 +61,12 @@ const AdditionalInformation: React.FC<any> = () => {
     { value: 'CHI', label: 'Chileno' },
     { value: 'AR', label: 'Argentino' },
     { value: 'O', label: 'Outros' }
+  ];
+
+  const gendersOptions = [
+    { value: '1', label: 'Masculino' },
+    { value: '2', label: 'Feminino' },
+    { value: '0', label: 'Outro' },
   ]
 
   return (
@@ -69,6 +76,7 @@ const AdditionalInformation: React.FC<any> = () => {
                     <Input name="name" type="text" placeholder="Nome completo"/>
                     <Input name="cpf" type="text" placeholder="CPF"/>
                     <CustomSelect name="nationality" options={nationalitiesOptions} placeholder="Nacionalidade" />
+                    <CustomSelect name="gender" options={gendersOptions} placeholder="Gênero" />
                     <DatePicker name="birthday" placeholder="Data de Nascimento" />
                     <Input name="phone" type="text" placeholder="Celular"/>
                     <Button type={'submit'} disabled={false}>Continuar</Button>
