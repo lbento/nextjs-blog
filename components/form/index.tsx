@@ -5,7 +5,6 @@ const From: React.FC<any> = ({
     onSubmit,
     children
 }) => {
-      
   return (
     <CustomForm onSubmit={onSubmit}>
     {children}
