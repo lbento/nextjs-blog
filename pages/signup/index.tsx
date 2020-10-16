@@ -7,9 +7,10 @@ import * as Yup from 'yup';
 import From from '../../components/form';
 import CustomSelect from '../../components/select';
 import CustomDialog from '../../components/dialog';
-import Chip from '@material-ui/core/Chip';
+
 
 const Signup: React.FC<any> = () => {
+
   const initialStateFirstStep = {
     email: "",
     password: ""
@@ -48,6 +49,7 @@ const Signup: React.FC<any> = () => {
     if (pass.length < 8) {
       console.log("Your password needs a minimum of eight characters")
     } else if (pass.search(/[a-z]/) < 0) {
+      document.getElementById("uppercase").style.backgroundColor = "green"
       data.target.style = styles.sucess;
       console.log("Your password needs a lower case letter")
     } else if (pass.search(/[A-Z]/) < 0) {
@@ -87,7 +89,7 @@ const Signup: React.FC<any> = () => {
           <From onSubmit={handleSubmit}>
             <Input name="email" type="email" placeholder="E-mail" />
             <Input name="password" type="password" placeholder="Crie uma senha" onChange={checkPassword} />
-            <br/><label style={{textAlign: "start", fontSize: '12px', color: '#535161'}}>Sua senha precisa conter:</label><br/>
+            <br/><label style={{fontSize: '12px', color: '#535161'}}>Sua senha precisa conter:</label><br/>
             <span style={styles.info}>Letra maiúscula</span>
             <span style={styles.info}>Letra minúscula</span>
             <span style={styles.info}>Valor numérico</span>
