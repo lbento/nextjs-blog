@@ -6,11 +6,20 @@ import Layout from '../../components/layout';
 import From from '../../components/form';
 import { useRouter } from 'next/router'
 import PasswordRequirements from '../../components/passwordrequirements';
+import * as yup from 'yup'; 
 
 const Signup: React.FC<any> = () => {
   const router = useRouter();
 
   const handleSubmit = data => {
+    schema
+    .isValid(data).then(valid => {
+      if(valid){
+        console.log('boa')
+      }else{
+        console.log('ah n')
+      }
+    })
     router.push({
       pathname: '/additional-information',
       query: { email: data.email, password: data.password }
@@ -44,12 +53,31 @@ const Signup: React.FC<any> = () => {
     info: { backgroundColor: '#F5F5F5' , color: '#A4A3AF'}
   }
 
+  //check valid
+  let yup = require('yup');
+
+  let schema = yup.object().shape({
+    email: yup
+    .string()
+    .email()
+    .required(),
+    password: yup
+    .string()
+    .required()
+  })
+ 
+  const validateForm = data => {
+    schema.email = data.target.value;
+    console.log(schema.email)
+  }
+
+
   return (
     <Layout>
         <CustomCard title={'Cadastro'} subheader={'Bem vindo ao Bike Itaú! Para continuar, digite seu e-mail e crie uma senha.'} >
             <From onSubmit={handleSubmit}>
-                <Input name="email" type="email" placeholder="E-mail" />
-                <Input name="password" type="password" placeholder="Crie uma senha" onChange={checkPassword} />
+                <Input name="email" type="email" placeholder="E-mail" required/>
+                <Input name="password" type="password" placeholder="Crie uma senha" onChange={checkPassword} minlength="8" required/>
                 <PasswordRequirements>
                   <p>Sua senha precisa conter:</p>
                   <div style={state.upper ? styles.sucess : styles.info}>Letra maiúscula</div>
