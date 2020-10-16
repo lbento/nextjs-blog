@@ -7,12 +7,6 @@ import * as Yup from 'yup';
 import From from '../../components/form';
 import CustomSelect from '../../components/select';
 import CustomDialog from '../../components/dialog';
-<<<<<<< HEAD
-
-
-const Signup: React.FC<any> = () => {
-
-=======
 import DatePicker from '../../components/datepicker';
 import axios from 'axios';
 import { useRouter } from 'next/router'
@@ -20,7 +14,6 @@ import Chip from '@material-ui/core/Chip';
 
 const Signup: React.FC<any> = () => {
   const router = useRouter();
->>>>>>> d6d8e0f3b72fcbaca7a7265f1acdaa5526c304a7
   const initialStateFirstStep = {
     email: "",
     password: ""
@@ -65,23 +58,6 @@ const Signup: React.FC<any> = () => {
   const checkPassword = data => {
     var pass = data.target.value;
 
-<<<<<<< HEAD
-    if (pass.length < 8) {
-      console.log("Your password needs a minimum of eight characters")
-    } else if (pass.search(/[a-z]/) < 0) {
-      document.getElementById("uppercase").style.backgroundColor = "green"
-      data.target.style = styles.sucess;
-      console.log("Your password needs a lower case letter")
-    } else if (pass.search(/[A-Z]/) < 0) {
-      console.log("Your password needs an uppser case letter")
-    } else if (pass.search(/[0-9]/) < 0) {
-      console.log("Your password needs a number")
-    } else if (pass.search(/[!@#$%^&*]/) < 0) {
-      console.log("Your password needs a symbol")
-    } else {
-      console.log('tudo pronto!')
-    }
-=======
     let states = {...state}
     states.eight = pass.length > 8 ? true : false;
     states.lower = /[a-z]/.test(pass) ? true : false;
@@ -90,7 +66,6 @@ const Signup: React.FC<any> = () => {
     states.symbol = /[!@#$%^&*]/.test(pass) ? true : false;
 
     setState(states);
->>>>>>> d6d8e0f3b72fcbaca7a7265f1acdaa5526c304a7
 
   }
 
@@ -134,20 +109,6 @@ const Signup: React.FC<any> = () => {
     if(step === 1){ 
       return (
         <CustomCard title={'Cadastro'} subheader={'Bem vindo ao Bike Itaú! Para continuar, digite seu e-mail e crie uma senha.'} >
-<<<<<<< HEAD
-          <From onSubmit={handleSubmit}>
-            <Input name="email" type="email" placeholder="E-mail" />
-            <Input name="password" type="password" placeholder="Crie uma senha" onChange={checkPassword} />
-            <br/><label style={{fontSize: '12px', color: '#535161'}}>Sua senha precisa conter:</label><br/>
-            <span style={styles.info}>Letra maiúscula</span>
-            <span style={styles.info}>Letra minúscula</span>
-            <span style={styles.info}>Valor numérico</span>
-            <span style={styles.info}>Um caractere especial dentre @ # $ & % ^ + =</span>
-            <span style={styles.info}>Ao menos 8 digitos</span>
-            <br/>
-            <Button type={'submit'} disabled={false}>Continuar</Button>
-          </From>
-=======
             <From onSubmit={handleSubmit}>
                 <Input name="email" type="email" placeholder="E-mail" />
                 <Input name="password" type="password" placeholder="Crie uma senha" onChange={checkPassword} />
@@ -160,7 +121,6 @@ const Signup: React.FC<any> = () => {
                 <br/>
                 <Button type={'submit'} disabled={false}>Continuar</Button>
                 </From>
->>>>>>> d6d8e0f3b72fcbaca7a7265f1acdaa5526c304a7
         </CustomCard>
       )
     }
