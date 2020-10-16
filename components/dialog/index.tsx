@@ -14,10 +14,7 @@ const CustomDialog: React.FC<any> = ({
             <Dialog
                 open={open}
                 onClose={handleClose}
-                aria-labelledby="alert-dialog-title"
-                aria-describedby="alert-dialog-description"
             >
-                <DialogTitle>{title}</DialogTitle>
                 <DialogContent>
                     <DialogContentText >
                        {messagem}
