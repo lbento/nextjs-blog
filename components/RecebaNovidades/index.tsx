@@ -15,15 +15,15 @@ const RecebaNovidades: React.FC<any> = () => {
         <>
             <RecebaNovidadesRow container alignItems="flex-end">
                 
-            <Grid item xs={12} sm={12} lg={6} xl={4}>
-                Receba nossas novidades
-            </Grid>
-            <Grid item xs={12} sm={12} lg={6} xl={4}>
-                <From onSubmit={handleSubmit}>
-                    <Input name="email" type="email" placeholder="E-mail de acesso" />
-                    <Button type={'submit'} disabled={false}>Cadastre-se</Button>
-                </From>
-            </Grid>
+                <Grid item xs={12} sm={12} lg={6} xl={4}>
+                    Receba nossas novidades
+                </Grid>
+                <Grid item xs={12} sm={12} lg={6} xl={4}>
+                    <From onSubmit={handleSubmit}>
+                        <Input name="email" type="email" placeholder="E-mail de acesso" />
+                        <Button type={'submit'} disabled={false}>Cadastre-se</Button>
+                    </From>
+                </Grid>
 
             </RecebaNovidadesRow>
         </>
