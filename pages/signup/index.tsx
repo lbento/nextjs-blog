@@ -5,6 +5,7 @@ import Button from '../../components/formbutton';
 import Layout from '../../components/layout';
 import From from '../../components/form';
 import { useRouter } from 'next/router'
+import PasswordRequirements from '../../components/passwordrequirements';
 
 const Signup: React.FC<any> = () => {
   const router = useRouter();
@@ -39,8 +40,8 @@ const Signup: React.FC<any> = () => {
   }
 
   const styles = {
-    sucess: { backgroundColor: '#43A047' , color: '#fff', borderRadius: '4px' , margin: '2px', padding: '9px 6px', fontSize: '10px'},
-    info: { backgroundColor: '#F5F5F5' , color: '#A4A3AF', borderRadius: '4px', margin: '2px', padding: '9px 6px', fontSize: '10px'}
+    sucess: { backgroundColor: '#43A047' , color: '#fff'},
+    info: { backgroundColor: '#F5F5F5' , color: '#A4A3AF'}
   }
 
   return (
@@ -49,13 +50,14 @@ const Signup: React.FC<any> = () => {
             <From onSubmit={handleSubmit}>
                 <Input name="email" type="email" placeholder="E-mail" />
                 <Input name="password" type="password" placeholder="Crie uma senha" onChange={checkPassword} />
-                <br/><label style={{textAlign: "start", fontSize: '12px', color: '#535161'}}>Sua senha precisa conter:</label><br/>
-                <span style={state.upper ? styles.sucess : styles.info}>Letra maiúscula</span>
-                <span style={state.lower ? styles.sucess : styles.info}>Letra minúscula</span>
-                <span style={state.number ? styles.sucess : styles.info}>Valor numérico</span>
-                <span style={state.symbol ? styles.sucess : styles.info}>Um caractere especial dentre @ # $ & % ^ + =</span>
-                <span style={state.eight ? styles.sucess : styles.info}>Ao menos 8 digitos</span>
-                <br/>
+                <PasswordRequirements>
+                  <p>Sua senha precisa conter:</p>
+                  <div style={state.upper ? styles.sucess : styles.info}>Letra maiúscula</div>
+                  <div style={state.lower ? styles.sucess : styles.info}>Letra minúscula</div>
+                  <div style={state.number ? styles.sucess : styles.info}>Valor numérico</div>
+                  <div style={state.symbol ? styles.sucess : styles.info}>Um caractere especial dentre @ # $ & % ^ + =</div>
+                  <div style={state.eight ? styles.sucess : styles.info}>Ao menos 8 digitos</div>
+                </PasswordRequirements>
                 <Button type={'submit'} disabled={false}>Continuar</Button>
                 </From>
         </CustomCard>
