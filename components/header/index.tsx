@@ -1,11 +1,29 @@
 import Link from 'next/link';
-import React from 'react';
-import { HeaderRow, MenuItens, Image, GridHeader } from './styles';
+import React, { useState } from 'react';
+import { HeaderRow, MenuItens, Image, GridHeader, CustomDrawer } from './styles';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
+import { List, ListItem } from '@material-ui/core';
 
 const Header: React.FC<any> = () => {
+
+    const [open, setState] = useState(false);
+
+    const toggleDrawer = (open: boolean) => (
+        event: React.KeyboardEvent | React.MouseEvent,
+      ) => {
+        if (
+          event.type === 'keydown' &&
+          ((event as React.KeyboardEvent).key === 'Tab' ||
+            (event as React.KeyboardEvent).key === 'Shift')
+        ) {
+          return;
+        }
+    
+        setState(open);
+      };
+
     const menuOptions = [
         {
             name: 'Página Inicial',
@@ -64,9 +82,17 @@ const Header: React.FC<any> = () => {
                             <IconButton
                                 edge="start"
                                 color="inherit"
+                                onClick={toggleDrawer(true)}
                                 >
                                 <MenuIcon fontSize="large" />
                             </IconButton>
+                            <CustomDrawer background={"#ff5900"} fontcolor={"#fff"} anchor={'right'} open={open} onClose={toggleDrawer(false)}>
+                                <List>
+                                    {menuOptions.map(({ name, link }) => (
+                                        <Link href={link}><ListItem button>{name}</ListItem></Link>
+                                    ))}
+                                </List>
+                            </CustomDrawer>
                         </Hidden>
                     </GridHeader>
                     

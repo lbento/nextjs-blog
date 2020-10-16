@@ -1,6 +1,5 @@
 import styled from 'styled-components';
-import { AppBar } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
+import { Drawer, Grid, AppBar } from '@material-ui/core';
 
 export const HeaderRow = styled(AppBar)`
     min-height: 115px;
@@ -27,4 +26,13 @@ export const Image = styled.img`
 
 export const GridHeader = styled(Grid)`
     text-align: ${props => props.align};
+`;
+
+export const CustomDrawer = styled(Drawer)`
+    & > div:nth-child(3) {
+        background-color: ${props => props.background} !important;
+        color: ${props => props.fontcolor} !important;
+        cursor: pointer;
+        font-weight: 600;
+    }
 `;
