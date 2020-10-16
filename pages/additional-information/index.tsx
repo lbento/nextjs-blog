@@ -9,6 +9,7 @@ import CustomDialog from '../../components/dialog';
 import DatePicker from '../../components/datepicker';
 import axios from 'axios';
 import { useRouter } from 'next/router'
+import CustomCheckbox from '../../components/checkbox';
 
 const AdditionalInformation: React.FC<any> = () => {
   const router = useRouter();
@@ -26,6 +27,8 @@ const AdditionalInformation: React.FC<any> = () => {
  
   const onsubmitHandler = async data => {
 
+    console.log(data)
+
     const userData = {
         email: router.query.email,
         password: router.query.password,
@@ -40,20 +43,20 @@ const AdditionalInformation: React.FC<any> = () => {
         }
       };
 
-    const headers = {
-      "Content-Type":  "application/json",
-      "Accept-Language": "pt-br"
-    }
+    // const headers = {
+    //   "Content-Type":  "application/json",
+    //   "Accept-Language": "pt-br"
+    // }
 
-    const res = await axios.post(`https://virtserver.swaggerhub.com/garusocruz/test/1.0.0/api/legacy/register/sign_up`, { userData }, { headers })
+    // const res = await axios.post(`https://virtserver.swaggerhub.com/garusocruz/test/1.0.0/api/legacy/register/sign_up`, { userData }, { headers })
 
-    if(res.status === 200) {
-      handleClickOpen();
-      localStorage.setItem('user_access', JSON.stringify(res.data[0])) 
-    }
-    else {
-      handleClickOpen();
-    }
+    // if(res.status === 200) {
+    //   handleClickOpen();
+    //   localStorage.setItem('user_access', JSON.stringify(res.data[0])) 
+    // }
+    // else {
+    //   handleClickOpen();
+    // }
   }
 
   const nationalitiesOptions = [
@@ -79,6 +82,7 @@ const AdditionalInformation: React.FC<any> = () => {
                     <CustomSelect name="gender" options={gendersOptions} placeholder="Gênero" />
                     <DatePicker name="birthday" placeholder="Data de Nascimento" />
                     <Input name="phone" type="text" placeholder="Celular"/>
+                    <CustomCheckbox name="termsConditions">Eu aceito os <span style={{color: '#EC7000', textDecoration: 'underline'}}>Termos de Uso</span> e a <span style={{color: '#EC7000', textDecoration: 'underline'}}>Politica de Provacidade</span></CustomCheckbox>
                     <Button type={'submit'} disabled={false}>Continuar</Button>
                 </From>
             </ CustomCard>
