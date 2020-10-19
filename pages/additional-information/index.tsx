@@ -18,15 +18,19 @@ import { IUserAccess } from '../../interfaces/user-access.interface';
 const AdditionalInformation: React.FC<any> = () => {
   const router = useRouter();
 
-  const [dialogData, setOpen] = React.useState({open: false, message: ''});
+  const [dialogData, setOpen] = React.useState({open: false, message: '', success: false});
 
-  const handleClickOpen = (message: string) => {
-    setOpen({open: true, message: message});
+  const handleClickOpen = (message: string, success: boolean) => {
+    setOpen({open: true, message: message, success: success});
   };
 
   const handleClose = () => {
-    setOpen({open: false, message: ''});
-    router.push('/');
+    if(dialogData.success) {
+        router.push('/');
+    }
+
+    setOpen({open: false, message: '', success: false});
+    
   };
  
   const onsubmitHandler = async data => {
@@ -46,12 +50,12 @@ const AdditionalInformation: React.FC<any> = () => {
       };
 
     try {
-        const res = await post<IUserAccess>(SIGNUP, { userData });
-        handleClickOpen("Parabéns, você foi cadastrado com sucesso!");
+        const res = await post<IUserAccess>(SIGNUP, { ...userData });
+        handleClickOpen("Parabéns, você foi cadastrado com sucesso!", true);
         localStorage.setItem(USER_ACCESS, JSON.stringify(res))
     }
     catch (error) {
-        handleClickOpen(error.message);
+        handleClickOpen(error.message, false);
     }
   }
 

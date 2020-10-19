@@ -10,6 +10,7 @@ module.exports = withPWA({
 module.exports = {
     trailingSlash: true,
     env: {
-        baseUrl: 'https://virtserver.swaggerhub.com/garusocruz/test/1.0.0/',
+        baseUrl: 'https://squadactiviadevelop.appspot.com/',
+        clientId: '9muP0l7icWd9f0jTKzca'
       },
   }

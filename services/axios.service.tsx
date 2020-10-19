@@ -3,7 +3,8 @@ import { IErrorResponse } from '../interfaces/error-response.interface';
 
 const headers = {
     "Content-Type":  "application/json",
-    "Accept-Language": "pt-br"
+    "Accept-Language": "pt-br",
+    "Client-Id": process.env.clientId
 }
 
 const baseUrl = process.env.baseUrl;
@@ -11,7 +12,7 @@ const baseUrl = process.env.baseUrl;
 export async function post<T>(url: string, data: any): Promise<T> {
 
     try {
-        const response = await axios.post<T>(`${baseUrl}${url}`, { data }, { headers });
+        const response = await axios.post<T>(`${baseUrl}${url}`, { ...data }, { headers });
         return response[0] as T;
       
     }
