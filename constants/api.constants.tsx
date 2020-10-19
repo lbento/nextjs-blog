@@ -1,0 +1,1 @@
+export const SIGNUP = 'api/legacy/register/sign_up';

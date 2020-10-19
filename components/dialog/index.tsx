@@ -17,7 +17,7 @@ const CustomDialog: React.FC<any> = ({
             >
                 <DialogContent>
                     <DialogContentText >
-                       {messagem}
+                      {messagem}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>

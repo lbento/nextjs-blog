@@ -9,4 +9,7 @@ module.exports = withPWA({
 
 module.exports = {
     trailingSlash: true,
+    env: {
+        baseUrl: 'https://virtserver.swaggerhub.com/garusocruz/test/1.0.0/',
+      },
   }

@@ -7,29 +7,31 @@ import From from '../../components/form';
 import CustomSelect from '../../components/select';
 import CustomDialog from '../../components/dialog';
 import DatePicker from '../../components/datepicker';
-import axios from 'axios';
+import { post } from '../../services/axios.service';
 import { useRouter } from 'next/router'
 import CustomCheckbox from '../../components/checkbox';
+import { SIGNUP } from '../../constants/api.constants';
+import { USER_ACCESS } from '../../constants/storage.constants';
+import { ISignup } from '../../interfaces/signup.interface';
+import { IUserAccess } from '../../interfaces/user-access.interface';
 
 const AdditionalInformation: React.FC<any> = () => {
   const router = useRouter();
 
-  const [open, setOpen] = React.useState(false);
+  const [dialogData, setOpen] = React.useState({open: false, message: ''});
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = (message: string) => {
+    setOpen({open: true, message: message});
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setOpen({open: false, message: ''});
     router.push('/');
   };
  
   const onsubmitHandler = async data => {
 
-    console.log(data)
-
-    const userData = {
+    const userData: ISignup = {
         email: router.query.email,
         password: router.query.password,
         name: data.name,
@@ -43,19 +45,13 @@ const AdditionalInformation: React.FC<any> = () => {
         }
       };
 
-    const headers = {
-      "Content-Type":  "application/json",
-      "Accept-Language": "pt-br"
+    try {
+        const res = await post<IUserAccess>(SIGNUP, { userData });
+        handleClickOpen("Parabéns, você foi cadastrado com sucesso!");
+        localStorage.setItem(USER_ACCESS, JSON.stringify(res))
     }
-
-    const res = await axios.post(`https://virtserver.swaggerhub.com/garusocruz/test/1.0.0/api/legacy/register/sign_up`, { userData }, { headers })
-
-    if(res.status === 200) {
-      handleClickOpen();
-      localStorage.setItem('user_access', JSON.stringify(res.data[0])) 
-    }
-    else {
-      handleClickOpen();
+    catch (error) {
+        handleClickOpen(error.message);
     }
   }
 
@@ -87,8 +83,8 @@ const AdditionalInformation: React.FC<any> = () => {
                 </From>
             </ CustomCard>
           <CustomDialog 
-            open={open}
-            messagem={"Parabéns, você foi cadastrado com sucesso!"}
+            open={dialogData.open}
+            messagem={dialogData.message}
             handleClose={handleClose}
           />
     </Layout>

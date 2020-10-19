@@ -1,9 +1,6 @@
 import { Grid } from '@material-ui/core';
 import React from 'react';
-import From from '../form';
-import Button from '../formbutton';
-import Input from '../input';
-import { RecebaNovidadesRow } from './styles';
+import { RecebaNovidadesRow, CustomButton, CustomTextField, CustomForm } from './styles';
 
 const RecebaNovidades: React.FC<any> = () => {
 
@@ -19,10 +16,10 @@ const RecebaNovidades: React.FC<any> = () => {
                     Receba nossas novidades
                 </Grid>
                 <Grid item xs={12} sm={7} lg={6} xl={4}>
-                    <From onSubmit={handleSubmit}>
-                        <Input name="email" type="email" placeholder="E-mail de acesso" />
-                        <Button type={'submit'} disabled={false}>Cadastre-se</Button>
-                    </From>
+                    <CustomForm onSubmit={handleSubmit}>
+                        <CustomTextField variant="outlined" name="email" type="email" placeholder="E-mail de acesso" />
+                        <CustomButton variant="contained" background={"#ff5900"} type={'submit'} disabled={false}>Cadastre-se</CustomButton>
+                    </CustomForm>
                 </Grid>
 
             </RecebaNovidadesRow>
