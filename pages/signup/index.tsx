@@ -74,7 +74,7 @@ const Signup: React.FC<any> = () => {
       <CustomCard title={'Cadastro'} subheader={'Bem vindo ao Bike Itaú! Para continuar, digite seu e-mail e crie uma senha.'} >
         <From onSubmit={handleSubmit}>
           <Input name="email" type="email" placeholder="E-mail" required />
-          <Input name="password" type="password" placeholder="Crie uma senha" onChange={checkPassword} minlength="8" required />
+          <Input name="password" isPassword={true} type='password' placeholder="Crie uma senha" onChange={checkPassword} minLength="8" required />
           <PasswordRequirements>
             <p>Sua senha precisa conter:</p>
             <div style={state.upper ? styles.sucess : styles.info}>Letra maiúscula</div>
