@@ -45,11 +45,14 @@ export default function Input({ name, isPassword = false, ...rest }) {
       return ;
   }
 
-  return <CustomTextField 
+  return (
+    <>
+        <CustomTextField 
             variant="outlined" 
             label={rest.placeholder} 
             inputRef={inputRef} 
             defaultValue={defaultValue}
+            className={error ? 'has-error' : ''}
             //value={state.value} 
            //onChange={handleChange}
             {...rest} 
@@ -58,5 +61,9 @@ export default function Input({ name, isPassword = false, ...rest }) {
                 endAdornment: isPassowordInput()
             }}
             fullWidth 
-        />;
+        />
+        { error && <span className="error">{error}</span> }
+    </>
+  ) 
+
 }

@@ -1,29 +1,50 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import CustomCard from '../../components/customcard';
 import Input from '../../components/input';
 import Button from '../../components/formbutton';
 import Layout from '../../components/layout';
-import From from '../../components/form';
 import { useRouter } from 'next/router'
 import PasswordRequirements from '../../components/passwordrequirements';
-import * as yup from 'yup';
+import * as Yup from 'yup';
+import { Form } from '@unform/web';	
 
 const Signup: React.FC<any> = () => {
   const router = useRouter();
+  const formRef = useRef(null);
 
-  const handleSubmit = data => {
-    schema
-      .isValid(data).then(valid => {
-        if (valid) {
-          console.log('boa')
-          router.push({
-            pathname: '/additional-information',
-            query: { email: data.email, password: data.password }
-          });
-        } else {
-          console.log('ah n')
-        }
-      })
+  const handleSubmit = async data => {
+    try {
+ 
+     formRef.current.setErrors({});
+      const schema = Yup.object().shape({
+        email: Yup
+          .string()
+          .email('O e-mail digitado é inválido. Tente novamente')
+          .required('o e-mail é obrigatório'),
+        password: Yup
+          .string()
+          .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/, 'A senha precisa seguir os requisitos listados abaixo')
+          .min(8, 'A senha precisa ter no minimo 8 caracteres')
+          .required("A senha é obrigatória"),
+      });
+
+      await schema.validate(data, {
+        abortEarly: false,
+      });
+ 
+      router.push({
+        pathname: '/additional-information',
+        query: { email: data.email, password: data.password }
+      });
+    } catch (err) {
+      const validationErrors = {};
+      if (err instanceof Yup.ValidationError) {
+        err.inner.forEach(error => {
+          validationErrors[error.path] = error.message;
+        });
+        formRef.current.setErrors(validationErrors);
+      }
+    }
   }
 
   const initialState = {
@@ -36,20 +57,6 @@ const Signup: React.FC<any> = () => {
 
   const [state, setState] = useState({ ...initialState });
 
-  //check valid
-  let yup = require('yup');
-
-  let schema = yup.object().shape({
-    email: yup
-      .string()
-      .email()
-      .required(),
-    password: yup
-      .string()
-      .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/)
-      .required("Required")
-  })
-
   const checkPassword = data => {
     var pass = data.target.value;
 
@@ -61,7 +68,6 @@ const Signup: React.FC<any> = () => {
     states.symbol = /[!@#$%^&*]/.test(pass) ? true : false;
 
     setState(states);
-
   }
 
   const styles = {
@@ -72,9 +78,9 @@ const Signup: React.FC<any> = () => {
   return (
     <Layout>
       <CustomCard title={'Cadastro'} subheader={'Bem vindo ao Bike Itaú! Para continuar, digite seu e-mail e crie uma senha.'} >
-        <From onSubmit={handleSubmit}>
-          <Input name="email" type="email" placeholder="E-mail" required />
-          <Input name="password" isPassword={true} type='password' placeholder="Crie uma senha" onChange={checkPassword} minLength="8" required />
+        <Form onSubmit={handleSubmit} ref={formRef}>
+          <Input name="email" placeholder="E-mail" />
+          <Input name="password" isPassword={true} type='password' placeholder="Crie uma senha" onChange={checkPassword} />
           <PasswordRequirements>
             <p>Sua senha precisa conter:</p>
             <div style={state.upper ? styles.sucess : styles.info}>Letra maiúscula</div>
@@ -84,7 +90,7 @@ const Signup: React.FC<any> = () => {
             <div style={state.eight ? styles.sucess : styles.info}>Ao menos 8 digitos</div>
           </PasswordRequirements>
           <Button type={'submit'} disabled={false}>Continuar</Button>
-        </From>
+        </Form>
       </CustomCard>
     </Layout>
   );
