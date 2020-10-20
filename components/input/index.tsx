@@ -1,12 +1,26 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { InputHTMLAttributes, useCallback, useEffect, useRef, useState } from 'react';
 import { useField } from '@unform/core';
 import { CustomTextField } from './styles';
 import { IconButton, InputAdornment } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import InputErrorMessage from '../inputerrormessage';
+import { cpf } from './mask';
 
-export default function Input({ name, isPassword = false, ...rest }) {
-  const inputRef = useRef(null);
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+  mask?: "cpf"
+}
+
+//: React.FC<InputProps> = ({name, isPassword = false, mask, ...rest}) => 
+export default function Input ({ name, isPassword = false, mask, ...rest }) {
+
+  const handleKey = useCallback((e: React.FormEvent<HTMLInputElement>) => {
+    if(mask == 'cpf'){
+      cpf(inputRef.current);
+    }
+  },[mask]
+  );
+
+const inputRef = useRef(null);
   const { fieldName, defaultValue, registerField, error } = useField(name);
   //const [state, setState] = useState({value: ""});
   
@@ -54,6 +68,7 @@ export default function Input({ name, isPassword = false, ...rest }) {
             inputRef={inputRef} 
             defaultValue={defaultValue}
             error={error}
+            onKeyUp={handleKey}
             //value={state.value} 
            //onChange={handleChange}
             {...rest} 
