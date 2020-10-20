@@ -49,7 +49,19 @@ const AdditionalInformation: React.FC<any> = () => {
           phone: Yup
             .string()
             .matches(/^[0-9]*$/, 'O celular deve conter apenas números')
-            .required('O celular é obrigatório'), 
+            .required('O celular é obrigatório'),
+          nationality : Yup
+            .string()
+            .required('A nacionalidade é obrigatória'),
+          gender : Yup
+            .string()
+            .required('O gênero é obrigatório'),
+           birthday : Yup
+           .string()
+           .required('A data de nascimento é obrigatória'),
+           termsConditions: Yup
+            .boolean()
+            .oneOf([true], 'Você deve aceitar os termos de uso e política de privacidade'),
         });
   
         await schema.validate(data, {
@@ -108,7 +120,7 @@ const AdditionalInformation: React.FC<any> = () => {
             <CustomCard title={'Informações adicionais'} subheader={'Preencha as informações abaixo para se cadastrar'}>
                 <Form onSubmit={onsubmitHandler} ref={formRef}>
                     <Input name="name" type="text" placeholder="Nome completo" mask="" />
-                    <Input name="cpf" type="text" placeholder="CPF" mask="cpf"/>
+                    <Input name="cpf" type="text" placeholder="CPF" mask="cpf" maxlenght="14"/>
                     <CustomSelect name="nationality" options={nationalitiesOptions} placeholder="Nacionalidade" />
                     <CustomSelect name="gender" options={gendersOptions} placeholder="Gênero" />
                     <DatePicker name="birthday" placeholder="Data de Nascimento" />

@@ -67,8 +67,8 @@ const inputRef = useRef(null);
             label={rest.placeholder} 
             inputRef={inputRef} 
             defaultValue={defaultValue}
-            error={error}
             onKeyUp={handleKey}
+            error={error ? true : false}
             //value={state.value} 
            //onChange={handleChange}
             {...rest} 

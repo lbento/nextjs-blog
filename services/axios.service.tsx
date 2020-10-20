@@ -4,7 +4,8 @@ import { IErrorResponse } from '../interfaces/error-response.interface';
 const headers = {
     "Content-Type":  "application/json",
     "Accept-Language": "pt-br",
-    "Client-Id": process.env.clientId
+    "client-id": process.env.clientId,
+    "Tracker-Id": process.env.trackerId
 }
 
 const baseUrl = process.env.baseUrl;
