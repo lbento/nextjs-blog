@@ -15,15 +15,24 @@ import { USER_ACCESS } from '../../constants/storage.constants';
 import { ISignup } from '../../interfaces/signup.interface';
 import { IUserAccess } from '../../interfaces/user-access.interface';
 import * as Yup from 'yup';
+import { getPostData } from '../../services/termos';
+import CustomConfirmDialog from '../../components/confirmdialog';
 
-const AdditionalInformation: React.FC<any> = () => {
+const AdditionalInformation: React.FC<any> = ({postData}) => {
   const router = useRouter();
   const formRef = useRef(null);
 
   const [dialogData, setOpen] = React.useState({open: false, message: '', success: false});
+  const [confirmDialogData, setConfirmOpen] = React.useState({open: false, success: false});
+  const [termsChecked, setTermsChecked] = React.useState(false);
 
   const handleClickOpen = (message: string, success: boolean) => {
     setOpen({open: true, message: message, success: success});
+  };
+
+  const handleClickConfirmOpen = (success: boolean, e: any) => {
+      e.preventDefault();
+      setConfirmOpen({open: true, success: success});
   };
 
   const handleClose = () => {
@@ -33,6 +42,14 @@ const AdditionalInformation: React.FC<any> = () => {
 
     setOpen({open: false, message: '', success: false});
     
+  };
+
+  const handleCofirmClose = (agreed) => {
+      if(agreed && !termsChecked) {
+        setTermsChecked(true);
+      }
+
+    setConfirmOpen({open: false, success: false});
   };
  
   const onsubmitHandler = async data => {
@@ -115,6 +132,10 @@ const AdditionalInformation: React.FC<any> = () => {
     { value: '0', label: 'Outro' },
   ]
 
+  const handlecheckboxChange = (agreed) => {
+    setTermsChecked(agreed);
+  }
+
   return (
     <Layout>
             <CustomCard title={'Informações adicionais'} subheader={'Preencha as informações abaixo para se cadastrar'}>
@@ -125,7 +146,7 @@ const AdditionalInformation: React.FC<any> = () => {
                     <CustomSelect name="gender" options={gendersOptions} placeholder="Gênero" />
                     <DatePicker name="birthday" placeholder="Data de Nascimento" />
                     <Input name="phone" type="text" mask="(99) 9 9999-9999" placeholder="Celular"/>
-                    <CustomCheckbox name="termsConditions">Eu aceito os <span style={{color: '#EC7000', textDecoration: 'underline'}}>Termos de Uso</span> e a <span style={{color: '#EC7000', textDecoration: 'underline'}}>Política de Provacidade</span></CustomCheckbox>
+                    <CustomCheckbox changing={ (e) => handlecheckboxChange(e)} isChecked={termsChecked} name="termsConditions">Eu aceito os <span style={{color: '#EC7000', textDecoration: 'underline'}} onClick={(e) => handleClickConfirmOpen(true, e)}>Termos de Uso</span> e a <span style={{color: '#EC7000', textDecoration: 'underline'}}>Política de Provacidade</span></CustomCheckbox>
                     <Button type={'submit'} disabled={false}>Continuar</Button>
                 </Form>
             </ CustomCard>
@@ -134,8 +155,24 @@ const AdditionalInformation: React.FC<any> = () => {
             messagem={dialogData.message}
             handleClose={handleClose}
           />
+        <CustomConfirmDialog 
+            open={confirmDialogData.open}
+            messagem={<div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />}
+            buttonText={'Concordo com os Termos de Uso'}
+            handleClose={handleCofirmClose}
+          />
     </Layout>
   );
 }
 
 export default AdditionalInformation;
+  
+export async function getStaticProps() {
+
+    const postData = await getPostData('termos-de-uso')
+    return {
+        props: {
+            postData
+        }
+    }
+}
