@@ -3,18 +3,19 @@ import 'date-fns';
 import ptbrLocale from "date-fns/locale/pt-BR";
 import { useField } from '@unform/core';
 import {
-    MuiPickersUtilsProvider,
-    KeyboardDatePicker,
-  } from '@material-ui/pickers';
-  import DateFnsUtils from '@date-io/date-fns';
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 import InputErrorMessage from '../inputerrormessage';
-import { DatePickerContainer } from './styles';
+import { DatePickerContainer, themeDate } from './styles';
+import { ThemeProvider } from "@material-ui/styles";
 
 const DatePicker: React.FC<any> = ({ name, ...rest }) => {
 
-    const datepickerRef = useRef(null);
-    const { fieldName, registerField, defaultValue, error } = useField(name);
-    const [date, setDate] = useState<Date | null>(defaultValue || new Date());
+  const datepickerRef = useRef(null);
+  const { fieldName, registerField, defaultValue, error } = useField(name);
+  const [date, setDate] = useState<Date | null>(defaultValue || new Date());
 
   useEffect(() => {
     registerField({
@@ -27,11 +28,13 @@ const DatePicker: React.FC<any> = ({ name, ...rest }) => {
     });
   }, [fieldName, registerField]);
 
-  
+
   return (
     <>
-    <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptbrLocale}>
-        <DatePickerContainer 
+      <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptbrLocale}>
+        <ThemeProvider theme={themeDate}>
+
+          <DatePickerContainer
             label={rest.placeholder}
             format="dd/MM/yyyy"
             inputVariant="outlined"
@@ -41,12 +44,13 @@ const DatePicker: React.FC<any> = ({ name, ...rest }) => {
             onChange={setDate}
             fullWidth
             KeyboardButtonProps={{
-            'aria-label': 'change date',
-          }}
-        />
-        
-    </MuiPickersUtilsProvider>
-    { error && <InputErrorMessage>{error}</InputErrorMessage>  }
+              'aria-label': 'change date',
+            }}
+          />
+        </ThemeProvider>
+
+      </MuiPickersUtilsProvider>
+      { error && <InputErrorMessage>{error}</InputErrorMessage>}
     </>
   );
 };
