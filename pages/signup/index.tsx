@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import CustomCard from '../../components/customcard';
 import Input from '../../components/input';
 import Button from '../../components/formbutton';
@@ -6,25 +6,33 @@ import Layout from '../../components/layout';
 import From from '../../components/form';
 import { useRouter } from 'next/router'
 import PasswordRequirements from '../../components/passwordrequirements';
-import * as yup from 'yup';
+import * as Yup from 'yup';
 
 const Signup: React.FC<any> = () => {
   const router = useRouter();
+  const formRef = useRef(null);
 
-  const handleSubmit = data => {
-    schema
-      .isValid(data).then(valid => {
-        if (valid) {
-          console.log('boa')
-          router.push({
-            pathname: '/additional-information',
-            query: { email: data.email, password: data.password }
-          });
-        } else {
-          console.log('ah n')
-        }
-      })
+  async function handleSubmit (data) {
+    if (data.email === ""){
+      formRef.current.setFieldError()
+    }
+   console.log(data)
   }
+    // schema
+    //   .isValid(data).then(valid => {
+    //     console.log(data.email.required)
+    //     debugger
+    //     if (valid) {
+    //       router.push({
+    //         pathname: '/additional-information',
+    //         query: { email: data.email, password: data.password }
+    //       });
+    //     }
+    //   }).catch(error => {
+    //     console.log(error)
+    //     debugger
+    //   })
+  
 
   const initialState = {
     eight: false,
@@ -47,7 +55,7 @@ const Signup: React.FC<any> = () => {
     password: yup
       .string()
       .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/)
-      .required("Required")
+      .required("Required password")
   })
 
   const checkPassword = data => {
@@ -72,9 +80,10 @@ const Signup: React.FC<any> = () => {
   return (
     <Layout>
       <CustomCard title={'Cadastro'} subheader={'Bem vindo ao Bike Itaú! Para continuar, digite seu e-mail e crie uma senha.'} >
-        <From onSubmit={handleSubmit}>
-          <Input name="email" type="email" placeholder="E-mail" required />
-          <Input name="password" isPassword={true} type='password' placeholder="Crie uma senha" onChange={checkPassword} minLength="8" required />
+        <From onSubmit={handleSubmit} ref={formRef}>
+          <Input name="email" type="text" placeholder="E-mail" />
+
+          <Input name="password" isPassword={true} type='password' placeholder="Crie uma senha" onChange={checkPassword} required />
           <PasswordRequirements>
             <p>Sua senha precisa conter:</p>
             <div style={state.upper ? styles.sucess : styles.info}>Letra maiúscula</div>
