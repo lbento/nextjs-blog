@@ -3,6 +3,7 @@ import { useField } from '@unform/core';
 import { CustomTextField } from './styles';
 import { IconButton, InputAdornment } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
+import InputErrorMessage from '../inputerrormessage';
 
 export default function Input({ name, isPassword = false, ...rest }) {
   const inputRef = useRef(null);
@@ -52,7 +53,7 @@ export default function Input({ name, isPassword = false, ...rest }) {
             label={rest.placeholder} 
             inputRef={inputRef} 
             defaultValue={defaultValue}
-            className={error ? 'has-error' : ''}
+            error={error}
             //value={state.value} 
            //onChange={handleChange}
             {...rest} 
@@ -62,7 +63,7 @@ export default function Input({ name, isPassword = false, ...rest }) {
             }}
             fullWidth 
         />
-        { error && <span className="error">{error}</span> }
+        { error && <InputErrorMessage>{error}</InputErrorMessage>  }
     </>
   ) 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { CustomButton } from './styles';
+import { CustomButton, ButtonContainer } from './styles';
 
 const Button: React.FC<any> = ({
     type,
@@ -8,9 +8,11 @@ const Button: React.FC<any> = ({
 }) => {
       
   return (
-    <CustomButton type={type} variant="contained" background={"#ff5900"} disabled={disabled}>
-    {children}
-    </CustomButton>
+       <ButtonContainer>
+            <CustomButton type={type} variant="contained" background={"#ff5900"} disabled={disabled}>
+            {children}
+            </CustomButton>
+        </ButtonContainer>
   )
 }
 

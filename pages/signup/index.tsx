@@ -20,7 +20,7 @@ const Signup: React.FC<any> = () => {
         email: Yup
           .string()
           .email('O e-mail digitado é inválido. Tente novamente')
-          .required('o e-mail é obrigatório'),
+          .required('O e-mail é obrigatório'),
         password: Yup
           .string()
           .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/, 'A senha precisa seguir os requisitos listados abaixo')

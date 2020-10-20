@@ -1,6 +1,10 @@
 import { Button } from '@material-ui/core';
 import styled from 'styled-components';
 
+export const ButtonContainer = styled.div`
+    text-align: center;
+`;
+
 export const CustomButton = styled(Button)`
     text-transform: none !important;
     background-color: ${props => props.background} !important;
