@@ -10,7 +10,7 @@ export const CustomButton = styled(Button)`
     background-color: ${props => props.background} !important;
     font-weight: 700 !important;
     color: #fff !important;
-    margin-top: 18px !important;
+    margin-top: 30px !important;
     opacity: ${props => props.disabled ? '0.4' : '1'};
     height: 50px;
     width: 45%;

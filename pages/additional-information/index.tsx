@@ -59,6 +59,9 @@ const AdditionalInformation: React.FC<any> = () => {
            birthday : Yup
            .string()
            .required('A data de nascimento é obrigatória'),
+           termsConditions: Yup
+            .boolean()
+            .oneOf([true], 'Você deve aceitar os termos de uso e política de privacidade'),
         });
   
         await schema.validate(data, {
@@ -122,7 +125,7 @@ const AdditionalInformation: React.FC<any> = () => {
                     <CustomSelect name="gender" options={gendersOptions} placeholder="Gênero" />
                     <DatePicker name="birthday" placeholder="Data de Nascimento" />
                     <Input name="phone" type="text" placeholder="Celular"/>
-                    <CustomCheckbox name="termsConditions">Eu aceito os <span style={{color: '#EC7000', textDecoration: 'underline'}}>Termos de Uso</span> e a <span style={{color: '#EC7000', textDecoration: 'underline'}}>Politica de Provacidade</span></CustomCheckbox>
+                    <CustomCheckbox name="termsConditions">Eu aceito os <span style={{color: '#EC7000', textDecoration: 'underline'}}>Termos de Uso</span> e a <span style={{color: '#EC7000', textDecoration: 'underline'}}>Política de Provacidade</span></CustomCheckbox>
                     <Button type={'submit'} disabled={false}>Continuar</Button>
                 </Form>
             </ CustomCard>
