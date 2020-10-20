@@ -44,11 +44,11 @@ const AdditionalInformation: React.FC<any> = () => {
             .required('O nome é obrigatório'),
           cpf: Yup
             .string()
-            .matches(/^[0-9]*$/, 'O CPF deve conter apenas números')
+            .min(13, 'CPF incompleto')
             .required('O CPF é obrigatório'),
           phone: Yup
             .string()
-            .matches(/^[0-9]*$/, 'O celular deve conter apenas números')
+            .min(15, 'Número de telefone incompleto')
             .required('O celular é obrigatório'),
           nationality : Yup
             .string()
@@ -120,11 +120,11 @@ const AdditionalInformation: React.FC<any> = () => {
             <CustomCard title={'Informações adicionais'} subheader={'Preencha as informações abaixo para se cadastrar'}>
                 <Form onSubmit={onsubmitHandler} ref={formRef}>
                     <Input name="name" type="text" placeholder="Nome completo"/>
-                    <Input name="cpf" type="text" placeholder="CPF"/>
+                    <Input name="cpf" type="text" mask="999.999.999-99" placeholder="CPF"/>
                     <CustomSelect name="nationality" options={nationalitiesOptions} placeholder="Nacionalidade" />
                     <CustomSelect name="gender" options={gendersOptions} placeholder="Gênero" />
                     <DatePicker name="birthday" placeholder="Data de Nascimento" />
-                    <Input name="phone" type="text" placeholder="Celular"/>
+                    <Input name="phone" type="text" mask="(99) 9 9999-9999" placeholder="Celular"/>
                     <CustomCheckbox name="termsConditions">Eu aceito os <span style={{color: '#EC7000', textDecoration: 'underline'}}>Termos de Uso</span> e a <span style={{color: '#EC7000', textDecoration: 'underline'}}>Política de Provacidade</span></CustomCheckbox>
                     <Button type={'submit'} disabled={false}>Continuar</Button>
                 </Form>

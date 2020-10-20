@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useField } from '@unform/core';
-import { CustomTextField } from './styles';
+import { CustomTextField  } from './styles';
 import { IconButton, InputAdornment } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 import InputErrorMessage from '../inputerrormessage';
+import InputMask, { Props as InputProps } from 'react-input-mask';
 
 export default function Input({ name, isPassword = false, ...rest }) {
   const inputRef = useRef(null);
@@ -26,6 +27,12 @@ export default function Input({ name, isPassword = false, ...rest }) {
       name: fieldName,
       ref: inputRef.current,
       path: 'value',
+      setValue(ref: any, value: string) {
+        ref.setInputValue(value);
+      },
+      clearValue(ref: any) {
+        ref.setInputValue('');
+      },
     });
   }, [fieldName, registerField]);
 
@@ -48,22 +55,27 @@ export default function Input({ name, isPassword = false, ...rest }) {
 
   return (
     <>
-        <CustomTextField 
-            variant="outlined" 
-            label={rest.placeholder} 
-            inputRef={inputRef} 
-            defaultValue={defaultValue}
-            error={error ? true : false}
-            //value={state.value} 
-           //onChange={handleChange}
-            {...rest} 
-            type={isPassword? inputType : rest.type}
-            InputProps={{
-                endAdornment: isPassowordInput()
-            }}
-            fullWidth 
-        />
-        { error && <InputErrorMessage>{error}</InputErrorMessage>  }
+    <InputMask mask={rest.mask} maskChar={null} onChange={rest.onChange}>
+        {(inputProps: any) => (
+                <CustomTextField 
+                variant="outlined" 
+                label={rest.placeholder} 
+                inputRef={inputRef} 
+                defaultValue={defaultValue}
+                error={error ? true : false}
+                //value={state.value} 
+               //onChange={handleChange}
+                {...rest} 
+                type={isPassword? inputType : rest.type}
+                InputProps={{
+                    endAdornment: isPassowordInput()
+                }}
+                fullWidth 
+            />
+        )}
+
+    </InputMask>
+    { error && <InputErrorMessage>{error}</InputErrorMessage>  }
     </>
   ) 
 
