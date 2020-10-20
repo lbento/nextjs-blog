@@ -49,7 +49,16 @@ const AdditionalInformation: React.FC<any> = () => {
           phone: Yup
             .string()
             .matches(/^[0-9]*$/, 'O celular deve conter apenas números')
-            .required('O celular é obrigatório'), 
+            .required('O celular é obrigatório'),
+          nationality : Yup
+            .string()
+            .required('A nacionalidade é obrigatória'),
+          gender : Yup
+            .string()
+            .required('O gênero é obrigatório'),
+           birthday : Yup
+           .string()
+           .required('A data de nascimento é obrigatória'),
         });
   
         await schema.validate(data, {

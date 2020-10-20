@@ -7,6 +7,8 @@ import {
     KeyboardDatePicker,
   } from '@material-ui/pickers';
   import DateFnsUtils from '@date-io/date-fns';
+import InputErrorMessage from '../inputerrormessage';
+import { DatePickerContainer } from './styles';
 
 const DatePicker: React.FC<any> = ({ name, ...rest }) => {
 
@@ -27,13 +29,14 @@ const DatePicker: React.FC<any> = ({ name, ...rest }) => {
 
   
   return (
+    <>
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={ptbrLocale}>
-        <KeyboardDatePicker 
-            margin="normal"
+        <DatePickerContainer 
             label={rest.placeholder}
             format="dd/MM/yyyy"
             inputVariant="outlined"
             inputRef={datepickerRef}
+            error={error ? true : false}
             value={date}
             onChange={setDate}
             fullWidth
@@ -41,7 +44,10 @@ const DatePicker: React.FC<any> = ({ name, ...rest }) => {
             'aria-label': 'change date',
           }}
         />
+        
     </MuiPickersUtilsProvider>
+    { error && <InputErrorMessage>{error}</InputErrorMessage>  }
+    </>
   );
 };
 export default DatePicker;

@@ -53,7 +53,7 @@ export default function Input({ name, isPassword = false, ...rest }) {
             label={rest.placeholder} 
             inputRef={inputRef} 
             defaultValue={defaultValue}
-            error={error}
+            error={error ? true : false}
             //value={state.value} 
            //onChange={handleChange}
             {...rest} 
