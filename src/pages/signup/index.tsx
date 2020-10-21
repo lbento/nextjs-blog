@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useMemo, useRef, useState } from 'react';
 import CustomCard from '../../components/customcard';
 import Input from '../../components/input';
 import Button from '../../components/formbutton';
@@ -7,12 +7,25 @@ import { useRouter } from 'next/router'
 import PasswordRequirements from '../../components/passwordrequirements';
 import * as Yup from 'yup';
 import { Form } from '@unform/web';	
+import { get } from '../../services/axios.service';
+import { CHECKEMAIL } from '../../constants/api.constants';
+import CustomDialog from '../../components/dialog';
 
 const Signup: React.FC<any> = () => {
   const router = useRouter();
   const formRef = useRef(null);
 
-  const handleSubmit = async data => {
+  const [dialogData, setOpen] = useState({open: false, message: ''});
+
+  const handleClickOpen = (message: string, success: boolean) => {
+    setOpen({open: true, message: message});
+  };
+
+  const handleClose = () => {
+    setOpen({open: false, message: ''});
+  };
+
+  const handleSubmit = useCallback(async data => {
     try {
  
      formRef.current.setErrors({});
@@ -31,11 +44,18 @@ const Signup: React.FC<any> = () => {
       await schema.validate(data, {
         abortEarly: false,
       });
+
+      try {
+        await get<boolean>(CHECKEMAIL, data.email);
+        router.push({
+          pathname: '/additional-information',
+          query: { email: data.email, password: data.password }
+        });
+      }
+      catch (error) {
+          handleClickOpen(error.message, false);
+      }
  
-      router.push({
-        pathname: '/additional-information',
-        query: { email: data.email, password: data.password }
-      });
     } catch (err) {
       const validationErrors = {};
       if (err instanceof Yup.ValidationError) {
@@ -45,7 +65,7 @@ const Signup: React.FC<any> = () => {
         formRef.current.setErrors(validationErrors);
       }
     }
-  }
+  }, [])
 
   const initialState = {
     eight: false,
@@ -57,18 +77,18 @@ const Signup: React.FC<any> = () => {
 
   const [state, setState] = useState({ ...initialState });
 
-  const checkPassword = data => {
-    var pass = data.target.value;
+  const checkPassword = useCallback( (data) => {
+    const pass = data.target.value;
 
-    let states = { ...state }
-    states.eight = pass.length >= 8 ? true : false;
-    states.lower = /[a-z]/.test(pass) ? true : false;
-    states.upper = /[A-Z]/.test(pass) ? true : false;
-    states.number = /[0-9]/.test(pass) ? true : false;
-    states.symbol = /[!@#$%^&*]/.test(pass) ? true : false;
+    setState({
+      eight: pass.length >= 8 ? true : false,
+      lower: /[a-z]/.test(pass) ? true : false,
+      upper: /[A-Z]/.test(pass) ? true : false,
+      number: /[0-9]/.test(pass) ? true : false,
+      symbol: /[!@#$%^&*]/.test(pass) ? true : false
+    });
 
-    setState(states);
-  }
+  }, [])
 
   const styles = {
     sucess: { backgroundColor: '#43A047', color: '#fff' },
@@ -92,6 +112,11 @@ const Signup: React.FC<any> = () => {
           <Button type={'submit'} disabled={false}>Continuar</Button>
         </Form>
       </CustomCard>
+      <CustomDialog 
+        open={dialogData.open}
+        messagem={dialogData.message}
+        handleClose={handleClose}
+      />
     </Layout>
   );
 }

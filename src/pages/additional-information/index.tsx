@@ -17,6 +17,7 @@ import { IUserAccess } from '../../interfaces/user-access.interface';
 import * as Yup from 'yup';
 import { getPostData } from '../../services/termos';
 import CustomConfirmDialog from '../../components/confirmdialog';
+import { format,parse } from 'date-fns'
 
 const AdditionalInformation: React.FC<any> = ({postData}) => {
   const router = useRouter();
@@ -88,13 +89,13 @@ const AdditionalInformation: React.FC<any> = ({postData}) => {
           email: router.query.email,
           password: router.query.password,
           name: data.name,
-          birthday: data.birthday,
+          birthday: format(parse(data.birthday, 'dd/MM/yyyy', new Date()), 'yyyy-MM-dd'),
           nationality: data.nationality,
-          phone: data.phone,
+          phone: data.phone.replace(/[ ()-]/g, ""),
           gender: data.gender,
           identity: {
             type: 2,
-            number: data.cpf
+            number: data.cpf.replace(/[.-]/g, "")
           }
         };
   
