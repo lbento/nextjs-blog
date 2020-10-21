@@ -36,5 +36,42 @@ img {
 
 .static-text .subtitulo {
   color: #A4A3AF; 
-  font-size: 16px
+}
+
+.static-text .bold {
+  font-weight: bold;
+}
+
+.static-text .italic {
+  font-style: italic;
+}
+
+.static-text .no-bottom {
+  margin-bottom: 0;
+}
+
+.static-text .no-margin {
+  margin: 0;
+}
+
+.static-text .table {
+  width: 100%
+}
+
+.static-text .table-overflow {
+  overflow-x:auto;
+}
+
+.static-text .table .table-first-row {
+  background-color: #ff5900;
+  color: #fff;
+  font-size: 1.3em;
+}
+
+.static-text .table .table-odd-row {
+  background-color: #F1F1F1;
+}
+
+.static-text .table .table-coll {
+  padding: 0 15px;
 }
