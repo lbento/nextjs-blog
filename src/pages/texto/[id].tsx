@@ -1,17 +1,20 @@
 import React from 'react';
 import Layout from '../../components/layout';
 import { getAllPostIds, getPostData } from '../../services/termos';
+import TextoContainer from '../../components/textocontainer'
 
-const TermosDeUso: React.FC<any> = ({postData}) => {
+const texto: React.FC<any> = ({postData}) => {
 
   return (
     <Layout>
-      <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      <TextoContainer>
+        <div dangerouslySetInnerHTML={{ __html: postData.contentHtml }} />
+      </TextoContainer>
     </Layout>
   );
 }
 
-export default TermosDeUso;
+export default texto;
 
 export async function getStaticPaths() {
   const paths = getAllPostIds()
