@@ -26,6 +26,4 @@ export async function post<T>(url: string, data: any): Promise<T> {
             throw new Error('Não foi possível realizar essa ação. Tente mais tarde')
         }
     }
-  
-    
 };

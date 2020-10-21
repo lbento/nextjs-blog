@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import CustomCard from '../../components/customcard';
 import Input from '../../components/input';
 import Button from '../../components/formbutton';
@@ -22,17 +22,17 @@ const AdditionalInformation: React.FC<any> = ({postData}) => {
   const router = useRouter();
   const formRef = useRef(null);
 
-  const [dialogData, setOpen] = React.useState({open: false, message: '', success: false});
-  const [confirmDialogData, setConfirmOpen] = React.useState({open: false, success: false});
-  const [termsChecked, setTermsChecked] = React.useState(false);
+  const [dialogData, setOpen] = useState({open: false, message: '', success: false});
+  const [confirmDialogData, setConfirmOpen] = useState({open: false, success: false});
+  const [termsChecked, setTermsChecked] = useState(false);
 
   const handleClickOpen = (message: string, success: boolean) => {
     setOpen({open: true, message: message, success: success});
   };
 
   const handleClickConfirmOpen = (success: boolean, e: any) => {
-      e.preventDefault();
-      setConfirmOpen({open: true, success: success});
+    e.preventDefault();
+    setConfirmOpen({open: true, success: success});
   };
 
   const handleClose = () => {
@@ -41,7 +41,6 @@ const AdditionalInformation: React.FC<any> = ({postData}) => {
     }
 
     setOpen({open: false, message: '', success: false});
-    
   };
 
   const handleCofirmClose = (agreed) => {
