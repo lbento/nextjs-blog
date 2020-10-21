@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 import { CustomForm } from './styles';
 
 const From: React.FC<any> = ({

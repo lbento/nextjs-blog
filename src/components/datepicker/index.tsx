@@ -4,7 +4,6 @@ import ptbrLocale from "date-fns/locale/pt-BR";
 import { useField } from '@unform/core';
 import {
   MuiPickersUtilsProvider,
-  KeyboardDatePicker,
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import InputErrorMessage from '../inputerrormessage';

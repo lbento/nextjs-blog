@@ -4,7 +4,7 @@ import remark from 'remark'
 import html from 'remark-html'
 import matter from 'gray-matter'
 
-const postsDirectory = path.join(process.cwd(), 'termos')
+const postsDirectory = path.join(process.cwd(), 'src/termos')
 
 export async function getPostData(id) {
     const fullPath = path.join(postsDirectory, `${id}.html`)

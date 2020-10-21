@@ -14,7 +14,7 @@ const Footer: React.FC<any> = () => {
             },
             {
                 name: 'Termos de Uso',
-                link: '/termos-de-uso'
+                link: '/texto/termos-de-uso'
 
             },
             {

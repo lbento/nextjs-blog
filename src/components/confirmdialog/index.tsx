@@ -1,4 +1,4 @@
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@material-ui/core';
+import { Dialog, DialogContent } from '@material-ui/core';
 import React from 'react';
 import { CustomButton, CustomDialogActions } from './styles'
 

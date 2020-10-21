@@ -1,5 +1,3 @@
-import Signup from "../pages/signup";
-
 export interface ISignup {
     email: string | string[],
     password: string | string[],

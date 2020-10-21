@@ -9,13 +9,8 @@ import InputMask, { Props as InputProps } from 'react-input-mask';
 export default function Input({ name, isPassword = false, ...rest }) {
   const inputRef = useRef(null);
   const { fieldName, defaultValue, registerField, error } = useField(name);
-  //const [state, setState] = useState({value: ""});
   
   const [inputType, setValue] = useState(rest.type);
-    
-//   const handleChange = (event) => {
-//     setState({value: event.target.value});
-//   }
 
   const handleClickShowPassword = () => {
     const typechanged = inputType === 'text' ? 'password' : 'text';
@@ -63,8 +58,6 @@ export default function Input({ name, isPassword = false, ...rest }) {
                 inputRef={inputRef} 
                 defaultValue={defaultValue}
                 error={error ? true : false}
-                //value={state.value} 
-               //onChange={handleChange}
                 {...rest} 
                 type={isPassword? inputType : rest.type}
                 InputProps={{
