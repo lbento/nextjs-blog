@@ -9,9 +9,4 @@ module.exports = withPWA({
 
 module.exports = {
     trailingSlash: true,
-    env: {
-        baseUrl: 'https://squadactiviadevelop.appspot.com/',
-        clientId: '9muP0l7icWd9f0jTKzca',
-        trackerId: 'HIFAjksjhDASKJDHKE'
-      },
   }

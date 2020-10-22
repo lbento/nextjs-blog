@@ -4,11 +4,11 @@ import { IErrorResponse } from '../interfaces/error-response.interface';
 const headers = {
     "Content-Type":  "application/json",
     "Accept-Language": "pt-br",
-    "client-id": process.env.clientId,
-    "Tracker-Id": process.env.trackerId
+    "client-id": process.env.NEXT_PUBLIC_clientId,
+    "Tracker-Id": process.env.NEXT_PUBLIC_trackerId
 }
 
-const baseUrl = process.env.baseUrl;
+const baseUrl = process.env.NEXT_PUBLIC_baseUrl;
 
 export async function post<T>(url: string, data: any): Promise<T> {
 
