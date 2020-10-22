@@ -10,6 +10,9 @@ export default function Home() {
 
         <Link href='/signup'>
             <a>Cadastro</a>
+        </Link><br/>
+        <Link href='/plans'>
+            <a>Planos</a>
         </Link>
 
         </div>
