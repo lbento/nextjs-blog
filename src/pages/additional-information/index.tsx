@@ -105,8 +105,14 @@ const AdditionalInformation: React.FC<any> = ({postData}) => {
         
         try {
             const res = await post<IUserAccess>(SIGNUP, { ...userData });
-            handleClickOpen("Parabéns, você foi cadastrado com sucesso!", true);
-            localStorage.setItem(USER_ACCESS, JSON.stringify(res))
+            if(res['error']) {
+              handleClickOpen(res['message'], false);
+            }
+            else {
+              handleClickOpen("Parabéns, você foi cadastrado com sucesso!", true);
+              localStorage.setItem(USER_ACCESS, JSON.stringify(res))
+            }
+
             setLoading(false);
         }
         catch (error) {

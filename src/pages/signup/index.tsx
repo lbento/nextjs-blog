@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import CustomCard from '../../components/customcard';
 import Input from '../../components/input';
 import Button from '../../components/formbutton';
@@ -10,7 +10,7 @@ import { Form } from '@unform/web';
 import { post } from '../../services/axios.service';
 import { VALIDATE_EMAIL } from '../../constants/api.constants';
 import CustomDialog from '../../components/dialog';
-import { IValidateEmail } from '../../interfaces/signup.interface';
+import { IEmailNoExists, IValidateEmail } from '../../interfaces/signup.interface';
 
 const Signup: React.FC<any> = () => {
   const router = useRouter();
@@ -53,11 +53,16 @@ const Signup: React.FC<any> = () => {
       }
 
       try {
-        await post<any>(VALIDATE_EMAIL, { ...postObj });
-        router.push({
-          pathname: '/additional-information',
-          query: { ...postObj }
-        });
+        const valid = await post<IEmailNoExists>(VALIDATE_EMAIL, { ...postObj });
+        if(valid['error']) {
+          handleClickOpen(valid['message'], false);
+        }
+        else {
+          router.push({
+            pathname: '/additional-information',
+            query: { ...postObj }
+          });
+        }
         setLoading(false);
       }
       catch (error) {

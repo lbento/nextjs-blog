@@ -1,7 +1,8 @@
 export interface IErrorResponse {
     message: string,
+    success?: boolean,
     error: {
-        item: string,
+        tracker_id: string,
         type: string
     }
 }
