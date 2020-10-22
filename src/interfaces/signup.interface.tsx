@@ -11,3 +11,7 @@ export interface ISignup {
         number: string
     }
 }
+export interface IValidateEmail {
+    email: string;
+    password: string
+}

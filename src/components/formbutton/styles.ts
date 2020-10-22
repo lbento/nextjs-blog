@@ -7,13 +7,16 @@ export const ButtonContainer = styled.div`
 
 export const CustomButton = styled(Button)`
     text-transform: none !important;
-    background-color: ${props => props.background} !important;
+    background-color: ${props => props.background}${props => props.disabled ? '66' : 'FF'} !important;
     font-weight: 700 !important;
     color: #fff !important;
     margin-top: 30px !important;
-    opacity: ${props => props.disabled ? '0.4' : '1'};
     height: 50px;
     width: 45%;
+
+    div {
+        color: ${props => props.background};
+    }
 
     @media(max-width: 599px) {
         width: 100%;

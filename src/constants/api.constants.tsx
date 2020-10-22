@@ -1,2 +1,2 @@
 export const SIGNUP = 'api/legacy/register/sign_up';
-export const CHECKEMAIL = 'api/legacy/VALIDAEMAILASIDH'
+export const VALIDATE_EMAIL = 'api/legacy/register/validate_email';

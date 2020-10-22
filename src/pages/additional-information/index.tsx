@@ -26,6 +26,7 @@ const AdditionalInformation: React.FC<any> = ({postData}) => {
   const [dialogData, setOpen] = useState({open: false, message: '', success: false});
   const [confirmDialogData, setConfirmOpen] = useState({open: false, success: false});
   const [termsChecked, setTermsChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleClickOpen = (message: string, success: boolean) => {
     setOpen({open: true, message: message, success: success});
@@ -54,6 +55,8 @@ const AdditionalInformation: React.FC<any> = ({postData}) => {
  
   const onsubmitHandler = async data => {
       try {
+        setLoading(true);
+
         formRef.current.setErrors({});
         const schema = Yup.object().shape({
           name: Yup
@@ -99,13 +102,16 @@ const AdditionalInformation: React.FC<any> = ({postData}) => {
           }
         };
   
+        
         try {
             const res = await post<IUserAccess>(SIGNUP, { ...userData });
             handleClickOpen("Parabéns, você foi cadastrado com sucesso!", true);
             localStorage.setItem(USER_ACCESS, JSON.stringify(res))
+            setLoading(false);
         }
         catch (error) {
             handleClickOpen(error.message, false);
+            setLoading(false);
         }
       }
       catch (err) {
@@ -116,6 +122,7 @@ const AdditionalInformation: React.FC<any> = ({postData}) => {
           });
           formRef.current.setErrors(validationErrors);
         }
+        setLoading(false);
       }
   }
 
@@ -147,7 +154,7 @@ const AdditionalInformation: React.FC<any> = ({postData}) => {
                     <DatePicker name="birthday" placeholder="Data de Nascimento" />
                     <Input name="phone" type="text" mask="(99) 9 9999-9999" placeholder="Celular"/>
                     <CustomCheckbox changing={ (e) => handlecheckboxChange(e)} isChecked={termsChecked} name="termsConditions">Eu aceito os <span style={{color: '#EC7000', textDecoration: 'underline'}} onClick={(e) => handleClickConfirmOpen(true, e)}>Termos de Uso</span> e a <span style={{color: '#EC7000', textDecoration: 'underline'}}>Política de Provacidade</span></CustomCheckbox>
-                    <Button type={'submit'} disabled={false}>Continuar</Button>
+                    <Button type={'submit'} disabled={loading}>Continuar</Button>
                 </Form>
             </ CustomCard>
           <CustomDialog 

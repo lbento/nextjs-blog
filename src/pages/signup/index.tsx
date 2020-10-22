@@ -7,15 +7,17 @@ import { useRouter } from 'next/router'
 import PasswordRequirements from '../../components/passwordrequirements';
 import * as Yup from 'yup';
 import { Form } from '@unform/web';	
-import { get } from '../../services/axios.service';
-import { CHECKEMAIL } from '../../constants/api.constants';
+import { post } from '../../services/axios.service';
+import { VALIDATE_EMAIL } from '../../constants/api.constants';
 import CustomDialog from '../../components/dialog';
+import { IValidateEmail } from '../../interfaces/signup.interface';
 
 const Signup: React.FC<any> = () => {
   const router = useRouter();
   const formRef = useRef(null);
 
   const [dialogData, setOpen] = useState({open: false, message: ''});
+  const [loading, setLoading] = useState(false);
 
   const handleClickOpen = (message: string, success: boolean) => {
     setOpen({open: true, message: message});
@@ -27,7 +29,7 @@ const Signup: React.FC<any> = () => {
 
   const handleSubmit = useCallback(async data => {
     try {
- 
+      setLoading(true);
      formRef.current.setErrors({});
       const schema = Yup.object().shape({
         email: Yup
@@ -45,15 +47,22 @@ const Signup: React.FC<any> = () => {
         abortEarly: false,
       });
 
+      const postObj: IValidateEmail = {
+        email: data.email,
+        password: data.password 
+      }
+
       try {
-        await get<boolean>(CHECKEMAIL, data.email);
+        await post<any>(VALIDATE_EMAIL, { ...postObj });
         router.push({
           pathname: '/additional-information',
-          query: { email: data.email, password: data.password }
+          query: { ...postObj }
         });
+        setLoading(false);
       }
       catch (error) {
           handleClickOpen(error.message, false);
+          setLoading(false);
       }
  
     } catch (err) {
@@ -64,6 +73,7 @@ const Signup: React.FC<any> = () => {
         });
         formRef.current.setErrors(validationErrors);
       }
+      setLoading(false);
     }
   }, [])
 
@@ -109,7 +119,7 @@ const Signup: React.FC<any> = () => {
             <div style={state.symbol ? styles.sucess : styles.info}>Um caractere especial dentre @ # $ & % ^ + =</div>
             <div style={state.eight ? styles.sucess : styles.info}>Ao menos 8 digitos</div>
           </PasswordRequirements>
-          <Button type={'submit'} disabled={false}>Continuar</Button>
+          <Button type={'submit'} disabled={loading}>Continuar</Button>
         </Form>
       </CustomCard>
       <CustomDialog 
