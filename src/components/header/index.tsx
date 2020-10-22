@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { HeaderRow, MenuItens, Image, GridHeader, CustomDrawer } from './styles';
+import { HeaderRow, MenuItens, Image, GridHeader, CustomDrawer, CustomButton } from './styles';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
@@ -74,9 +74,15 @@ const Header: React.FC<any> = () => {
                     
                     <GridHeader item xs={10} align={"right"}>
                         <Hidden mdDown>
-                            {menuOptions.map(({ name, link }, index) => (
-                                <Link href={link} key={index}><MenuItens>{name}</MenuItens></Link>
-                            ))}
+                            <GridHeader item absoluteRow={true}>
+                                <Link href="/signup"><CustomButton background={"#004990"} fontcolor={"#fff"}>Login</CustomButton></Link>
+                                <Link href="/signup"><CustomButton background={"#004990"} fontcolor={"#fff"}>Cadastre-se</CustomButton></Link>
+                            </GridHeader>
+                            <GridHeader item>
+                                {menuOptions.map(({ name, link }, index) => (
+                                    <Link href={link} key={index}><MenuItens>{name}</MenuItens></Link>
+                                ))}
+                            </GridHeader>
                         </Hidden>
                         <Hidden lgUp>
                             <IconButton
@@ -91,6 +97,8 @@ const Header: React.FC<any> = () => {
                                     {menuOptions.map(({ name, link }, index) => (
                                         <Link href={link} key={index}><ListItem button>{name}</ListItem></Link>
                                     ))}
+                                    <Link href="/signup"><ListItem button>Login</ListItem></Link>
+                                    <Link href="/signup"><ListItem button>Cadastre-se</ListItem></Link>
                                 </List>
                             </CustomDrawer>
                         </Hidden>
