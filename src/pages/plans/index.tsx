@@ -89,7 +89,7 @@ const Plans: React.FC<any> = () => {
                 <div style={{ marginTop: '30px' }}>
 
                     <CustomCard title="Escolha um Plano" subheader="Escolha o plano perfeito para você começar a pedalar" >
-                        <Grid container direction="column" alignItems="center" justify="center" style={{ display: "flex", flexDirection: "row" }}>
+                        <Grid container direction="column" alignItems="center" justify="center" style={{ display: "flex", flexDirection: "row" }} spacing={2}>
                             <CustomPlanCard title="Passe Diário" value="R$ 8,80" descount=" " message=" ">
                                 <Button type="button">Continuar</Button>
                             </CustomPlanCard>

@@ -21,7 +21,7 @@ const Cardc: React.FC<CardCustomProps> = ({
     children,
 }) => {
     return (
-        <Grid item xs={12} sm={12} lg={4} xl={4} spacing={2}>
+        <Grid item xs={12} sm={12} lg={4} xl={4}>
             <CustomCard >
                 <CustomContent>
                     <div style={{ marginBottom: '15px' }}>
